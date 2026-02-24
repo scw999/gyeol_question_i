@@ -1,4 +1,7 @@
 
+
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -212,13 +215,14 @@
         }
         .resonance-canvas-wrapper {
             width: 100%; 
-            height: 320px;
-            background: #fff;
+            height: 320px; /* 충분한 높이 확보 */
+            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(243,244,246,0.6) 50%, rgba(255,255,255,0) 100%);
             position: relative;
             border-radius: 16px;
             overflow: hidden;
             margin-bottom: 16px;
-            border: 1px solid rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.03);
+            /* 캔버스 정렬을 위한 Flex */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2262,102 +2266,60 @@
             ctx.scale(dpr, dpr);
             const width = rect.width;
             const height = rect.height;
-            const centerY = height / 2;
-            const maxAmplitude = (height / 2) - 30;
-            const mColors = getDominantColor(maleAxes);
-            const fColors = getDominantColor(femaleAxes);
-
-            const calcAmpLevel = (axes) => {
-                const raw = (axes['외향성']||0)*1.2 + (axes['개방성']||0)*0.8 + (axes['애착불안']||0)*0.5;
-                return Math.max(1, Math.min(10, Math.round(raw) || 1));
-            };
-            const calcSpeedLevel = (axes) => {
-                const raw = (axes['애착불안']||0)*1.0 + (axes['애착회피']||0)*1.2 + (axes['개방성']||0)*0.5;
-                return Math.max(1, Math.min(10, Math.round(raw) || 1));
-            };
-
-            const mAmpLv = calcAmpLevel(maleAxes);
-            const fAmpLv = calcAmpLevel(femaleAxes);
-            const mSpdLv = calcSpeedLevel(maleAxes);
-            const fSpdLv = calcSpeedLevel(femaleAxes);
-
-            const mAmpBase = 8 + (mAmpLv - 1) / 9 * (maxAmplitude - 8);
-            const fAmpBase = 8 + (fAmpLv - 1) / 9 * (maxAmplitude - 8);
-            const mFreq = 0.008 + (mSpdLv - 1) / 9 * 0.027;
-            const fFreq = 0.008 + (fSpdLv - 1) / 9 * 0.027;
-
-            const isSynced = score >= 70;
-            const phaseDiff = isSynced ? 0.3 : 2.5;
-
-            function hexToRgb(hex) {
-                const r = parseInt(hex.slice(1,3),16);
-                const g = parseInt(hex.slice(3,5),16);
-                const b = parseInt(hex.slice(5,7),16);
-                return [r,g,b];
-            }
-
-            function drawGrainWave(amp, freq, phase, colors, yCenter, offset) {
-                const [r,g,b] = hexToRgb(colors[0]);
-                const lines = 9;
-                for (let i = 0; i < lines; i++) {
-                    const ratio = 0.75 + (i / (lines - 1)) * 0.5;
-                    const lineAmp = amp * ratio;
-                    const distFromCenter = Math.abs(ratio - 1.0);
-                    const alpha = 0.65 - distFromCenter * 0.8;
-                    const lw = 1.8 - distFromCenter * 1.2;
-                    ctx.beginPath();
-                    for (let x = 0; x < width; x++) {
-                        const y = yCenter + Math.sin(x * freq + offset + phase) * lineAmp;
-                        if (x === 0) ctx.moveTo(x, y);
-                        else ctx.lineTo(x, y);
-                    }
-                    ctx.strokeStyle = `rgba(${r},${g},${b},${Math.max(0.12, alpha).toFixed(2)})`;
-                    ctx.lineWidth = Math.max(0.6, lw);
-                    ctx.lineCap = 'round';
-                    ctx.lineJoin = 'round';
-                    ctx.stroke();
-                }
-            }
-
+            const centerY = height / 2; 
+            const maxAmplitude = (height / 2) - 60; 
             let offset = 0;
-
+            const mColors = getDominantColor(maleAxes); 
+            const fColors = getDominantColor(femaleAxes); 
+            const calcAmplitude = (axes) => {
+                const energyScore = (axes['외향성'] || 0) * 1.2 + (axes['개방성'] || 0) * 0.8 + (axes['애착불안'] || 0) * 0.5;
+                return Math.min(maxAmplitude, 15 + (energyScore * 5));
+            };
+            const ampM = calcAmplitude(maleAxes);
+            const ampF = calcAmplitude(femaleAxes);
+            const calcFrequency = (axes) => {
+                const stabilityScore = (axes['성실성'] || 0) + (axes['정서안정'] || 0) + (axes['애착안정'] || 0) * 1.5;
+                return Math.max(0.005, 0.03 - (stabilityScore * 0.002));
+            };
+            const freqM = calcFrequency(maleAxes);
+            const freqF = calcFrequency(femaleAxes);
+            const isSynced = score >= 70;
+            const phaseDiff = isSynced ? 0.3 : 2.5; 
             function animate() {
                 ctx.clearRect(0, 0, width, height);
-                ctx.fillStyle = '#fff';
-                ctx.fillRect(0, 0, width, height);
-
-                ctx.globalCompositeOperation = 'multiply';
-                drawGrainWave(mAmpBase, mFreq, 0, mColors, centerY, offset);
-                drawGrainWave(fAmpBase, fFreq, phaseDiff, fColors, centerY, offset);
-                ctx.globalCompositeOperation = 'source-over';
-
-                const mRgbArr = hexToRgb(mColors[0]);
-                const fRgbArr = hexToRgb(fColors[0]);
-                const mixR = Math.round((mRgbArr[0] + fRgbArr[0]) / 2);
-                const mixG = Math.round((mRgbArr[1] + fRgbArr[1]) / 2);
-                const mixB = Math.round((mRgbArr[2] + fRgbArr[2]) / 2);
-
-                let prevDiff = 0;
+                ctx.beginPath();
                 for (let x = 0; x < width; x++) {
-                    const mY = Math.sin(x * mFreq + offset) * mAmpBase;
-                    const fY = Math.sin(x * fFreq + offset + phaseDiff) * fAmpBase;
-                    const diff = mY - fY;
-                    if (x > 0 && prevDiff * diff < 0) {
-                        const crossY = centerY + (mY + fY) / 2;
-                        const glow = ctx.createRadialGradient(x, crossY, 0, x, crossY, 18);
-                        glow.addColorStop(0, `rgba(${mixR},${mixG},${mixB},0.25)`);
-                        glow.addColorStop(0.5, `rgba(${mixR},${mixG},${mixB},0.08)`);
-                        glow.addColorStop(1, 'rgba(255,255,255,0)');
-                        ctx.fillStyle = glow;
-                        ctx.fillRect(x - 18, crossY - 18, 36, 36);
-                        ctx.beginPath();
-                        ctx.arc(x, crossY, 2, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(${mixR},${mixG},${mixB},0.35)`;
-                        ctx.fill();
-                    }
-                    prevDiff = diff;
+                    const y = centerY + Math.sin(x * freqM + offset) * ampM;
+                    ctx.lineTo(x, y);
                 }
-
+                const gradM = ctx.createLinearGradient(0, 0, width, 0);
+                gradM.addColorStop(0, mColors[1]); 
+                gradM.addColorStop(0.5, mColors[0]); 
+                gradM.addColorStop(1, mColors[1]); 
+                ctx.strokeStyle = gradM;
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = mColors[0];
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+                ctx.beginPath();
+                for (let x = 0; x < width; x++) {
+                    const y = centerY + Math.sin(x * freqF + offset + phaseDiff) * ampF;
+                    ctx.lineTo(x, y);
+                }
+                const gradF = ctx.createLinearGradient(0, 0, width, 0);
+                gradF.addColorStop(0, fColors[1]);
+                gradF.addColorStop(0.5, fColors[0]);
+                gradF.addColorStop(1, fColors[1]);
+                ctx.strokeStyle = gradF;
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = fColors[0];
+                ctx.stroke();
+                ctx.shadowBlur = 0;
                 offset += 0.03;
                 requestAnimationFrame(animate);
             }
@@ -2778,47 +2740,47 @@
                 </div>
             `;
         }
-        // ── 결 해석 v6: 2축 분기(에너지×안정감) + 모달 카드 ──
+        // ── 파동 한 줄 해석 v4: 색상 통합 + 프로필당 3 variant ──
         const waveColorMeta = {
-            '개방성':  { name: '보라', desc: '새로운 걸 좋아하는', emoji: '🟣' },
-            '성실성':  { name: '파랑', desc: '계획적이고 꼼꼼한', emoji: '🔵' },
-            '외향성':  { name: '주황', desc: '밝고 활발한', emoji: '🟠' },
-            '우호성':  { name: '초록', desc: '다정하고 배려 깊은', emoji: '🟢' },
-            '정서안정': { name: '청록', desc: '차분하고 안정적인', emoji: '🩵' },
-            '애착안정': { name: '남색', desc: '믿음직하고 든든한', emoji: '🔵' },
-            '애착불안': { name: '빨강', desc: '감수성이 풍부한', emoji: '🔴' },
-            '애착회피': { name: '은색', desc: '자유롭고 주관이 뚜렷한', emoji: '⚪' }
+            '개방성':  { name: '보랏빛', meaning: '호기심의 색', emoji: '🟣' },
+            '성실성':  { name: '푸른빛', meaning: '신뢰의 색', emoji: '🔵' },
+            '외향성':  { name: '주황빛', meaning: '활력의 색', emoji: '🟠' },
+            '우호성':  { name: '초록빛', meaning: '배려의 색', emoji: '🟢' },
+            '정서안정': { name: '청록빛', meaning: '평온의 색', emoji: '🩵' },
+            '애착안정': { name: '남빛', meaning: '깊은 신뢰의 색', emoji: '🔵' },
+            '애착불안': { name: '붉은빛', meaning: '감수성의 색', emoji: '🔴' },
+            '애착회피': { name: '은빛', meaning: '자존의 색', emoji: '⚪' }
         };
 
         const colorComboDesc = {
-            '개방성+외향성':     '호기심과 에너지가 만나',
-            '개방성+성실성':     '꿈과 계획이 만나',
-            '개방성+우호성':     '호기심과 다정함이 만나',
-            '개방성+정서안정':   '탐구심과 안정감이 만나',
-            '개방성+애착안정':   '모험심과 믿음이 만나',
-            '개방성+애착불안':   '호기심과 감수성이 만나',
-            '개방성+애착회피':   '탐구심과 독립심이 만나',
-            '성실성+외향성':     '추진력과 계획력이 만나',
-            '성실성+우호성':     '성실함과 배려가 만나',
-            '성실성+정서안정':   '꼼꼼함과 안정감이 만나',
-            '성실성+애착안정':   '계획력과 신뢰가 만나',
-            '성실성+애착불안':   '성실함과 감수성이 만나',
-            '성실성+애착회피':   '계획력과 독립심이 만나',
-            '외향성+우호성':     '활발함과 다정함이 만나',
-            '외향성+정서안정':   '에너지와 안정감이 만나',
-            '애착안정+외향성':   '믿음과 활발함이 만나',
-            '애착불안+외향성':   '감수성과 에너지가 만나',
-            '애착회피+외향성':   '독립심과 활발함이 만나',
-            '우호성+정서안정':   '배려와 안정감이 만나',
-            '애착안정+우호성':   '믿음과 다정함이 만나',
-            '애착불안+우호성':   '감수성과 배려가 만나',
-            '애착회피+우호성':   '독립심과 배려가 만나',
-            '애착안정+정서안정': '신뢰와 안정감이 만나',
-            '애착불안+정서안정': '감수성과 차분함이 만나',
-            '애착회피+정서안정': '독립심과 안정감이 만나',
-            '애착불안+애착안정': '감수성과 믿음이 만나',
-            '애착안정+애착회피': '신뢰와 독립심이 만나',
-            '애착불안+애착회피': '감수성과 독립심이 만나'
+            '개방성+외향성':     '에너지와 호기심이 폭발하듯 뻗어나가는',
+            '개방성+성실성':     '꿈과 현실이 균형을 이루며 나아가는',
+            '개방성+우호성':     '열린 마음이 부드럽게 감싸 안는',
+            '개방성+정서안정':   '흔들림 없이 새로운 깊이를 탐색하는',
+            '개방성+애착안정':   '안정 속에서 자유롭게 탐색하는',
+            '개방성+애착불안':   '감수성이 호기심을 타고 번지는',
+            '개방성+애착회피':   '독자적 세계를 탐구하며 울리는',
+            '성실성+외향성':     '추진력에 전략이 더해져 힘차게 나아가는',
+            '성실성+우호성':     '성실한 배려가 묵직하게 흐르는',
+            '성실성+정서안정':   '반석처럼 단단하고 흔들림 없는',
+            '성실성+애착안정':   '깊은 신뢰 위에 계획이 쌓이는',
+            '성실성+애착불안':   '완벽을 향한 긴장감이 팽팽한',
+            '성실성+애착회피':   '독립적 추진력이 규칙적으로 나아가는',
+            '외향성+우호성':     '활력이 배려를 만나 따뜻하게 퍼지는',
+            '외향성+정서안정':   '안정된 에너지를 밝게 발산하는',
+            '애착안정+외향성':   '든든한 에너지가 밝게 퍼지는',
+            '애착불안+외향성':   '뜨겁고 강렬한 감정이 요동치는',
+            '애착회피+외향성':   '넓게 퍼지면서도 중심을 지키는',
+            '우호성+정서안정':   '갈등을 녹이며 고요하게 흐르는',
+            '애착안정+우호성':   '따뜻하게 감싸는 포근한',
+            '애착불안+우호성':   '사랑이 넘쳐 섬세하게 떨리는',
+            '애착회피+우호성':   '거리를 두면서 은은히 배려하는',
+            '애착안정+정서안정': '어떤 바람에도 흔들리지 않는',
+            '애착불안+정서안정': '겉은 고요하나 속은 깊은',
+            '애착회피+정서안정': '초연하고 일정한 간격을 유지하는',
+            '애착불안+애착안정': '안정을 향해 조금씩 잔잔해지는',
+            '애착안정+애착회피': '열림과 닫힘이 번갈아 흐르는',
+            '애착불안+애착회피': '다가감과 물러남이 교차하는'
         };
 
         function getWaveSummaryLines(score, mAxes, fAxes) {
@@ -3361,33 +3323,33 @@
             let subText = "";
             if (score >= 70) {
                 if (avgEnergy >= 3.5) {
-                    mainText = "둘 다 <span style='color:#F59E0B'>에너지가 높아서 함께 있으면 더 신나는</span> 커플이에요.";
-                    subText = "같이 뭘 해도 재미있고, 서로 의욕을 높여주는 관계입니다.";
+                    mainText = "두 분의 파장은 <span style='color:#F59E0B'>열정적인 공명(Resonance)</span>을 일으키고 있습니다.";
+                    subText = "함께할 때 에너지가 증폭되어 무엇이든 해낼 수 있는 파워풀한 커플입니다.";
                 } else if (avgStable >= 3.5) {
-                    mainText = "둘 다 <span style='color:#3B82F6'>차분하고 안정적이라 함께 있으면 편안한</span> 사이예요.";
-                    subText = "굳이 말하지 않아도 서로를 이해하고, 옆에 있으면 마음이 놓이는 관계입니다.";
+                    mainText = "두 분의 리듬은 <span style='color:#3B82F6'>고요한 호수처럼 평온한 동기화</span>를 이룹니다.";
+                    subText = "말하지 않아도 통하는 깊은 신뢰와 안정감이 느껴지는 관계입니다.";
                 } else {
-                    mainText = "두 분은 <span style='color:#E11D48'>서로의 리듬이 잘 맞아서 자연스럽게 통하는</span> 사이예요.";
-                    subText = "같이 있으면 힘을 빼지 않아도 편하고, 서로에게 가장 자연스러운 존재입니다.";
+                    mainText = "두 분의 파장은 <span style='color:#E11D48'>하나의 아름다운 선율</span>처럼 흐르고 있습니다.";
+                    subText = "서로가 서로에게 가장 편안하고 자연스러운 안식처가 되어줍니다.";
                 }
             } 
             else {
                 if (isColorSame) {
                     if (avgEnergy >= 3.5) {
-                        mainText = "비슷한 성격이라 <span style='color:#F59E0B'>서로 잘 이해하고 같이 즐길 수 있는</span> 사이예요.";
-                        subText = "닮은 부분이 많아서 대화가 잘 통하고, 취향도 비슷한 편입니다.";
+                        mainText = "비슷한 불꽃이 만나 <span style='color:#F59E0B'>더 크고 뜨거운 에너지</span>를 만듭니다.";
+                        subText = "서로 닮은 만큼 누구보다 깊이 이해하고, 함께 있을 때 가장 자연스러운 관계입니다.";
                     } else {
-                        mainText = "비슷한 성향이라 <span style='color:#3B82F6'>말 안 해도 서로 뭘 원하는지 아는</span> 사이예요.";
-                        subText = "같은 결을 가져서 상대 마음을 누구보다 잘 알아차릴 수 있습니다.";
+                        mainText = "비슷한 결을 가진 두 분은 <span style='color:#3B82F6'>깊은 공감대</span>를 형성합니다.";
+                        subText = "같은 결을 가진 두 분이기에, 누구보다 완벽한 소울메이트가 될 수 있습니다.";
                     }
                 }
                 else { 
                     if (avgEnergy >= 3.5) {
-                        mainText = "성격은 다르지만 <span style='color:#F59E0B'>서로 없는 부분을 채워주는</span> 관계예요.";
-                        subText = "상대 덕분에 새로운 경험을 하게 되고, 지루할 틈이 없는 사이입니다.";
+                        mainText = "서로 다른 강렬한 색채가 만나 <span style='color:#F59E0B'>화려한 불꽃</span>을 만들어냅니다.";
+                        subText = "지루할 틈 없이 서로에게 끊임없는 자극과 영감을 주는 다이내믹한 관계입니다.";
                     } else {
-                        mainText = "서로 다른 리듬이라 <span style='color:#8B5CF6'>상대를 통해 새로운 면을 발견하는</span> 관계예요.";
-                        subText = "나랑 다른 상대의 방식이 처음엔 낯설지만, 알수록 배울 점이 많은 사이입니다.";
+                        mainText = "서로 다른 리듬이 어우러져 <span style='color:#8B5CF6'>다채로운 변주곡</span>을 연주합니다.";
+                        subText = "나와 다른 상대의 세계를 경험하며, 함께 성장하고 넓어지는 특별한 기회입니다.";
                     }
                 }
             }
