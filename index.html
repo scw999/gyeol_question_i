@@ -1333,14 +1333,14 @@
                             <!-- 상단 범례 -->
                             <div style="display:flex;justify-content:center;gap:14px;margin-bottom:14px;flex-wrap:wrap;">
                                 <div style="display:flex;align-items:center;gap:5px;background:rgba(51,65,85,0.5);border-radius:8px;padding:4px 10px;">
-                                    <span style="color:#fbbf24;font-size:13px;font-weight:700;">⛰️ 파동의 크기</span>
+                                    <span style="color:#fbbf24;font-size:13px;font-weight:700;">⛰️ 관계 에너지</span>
                                     <span style="color:#94a3b8;font-size:12px;">=</span>
-                                    <span style="color:#cbd5e1;font-size:12px;font-weight:600;">에너지 (Y축)</span>
+                                    <span style="color:#cbd5e1;font-size:12px;font-weight:600;">적극성 (Y축)</span>
                                 </div>
                                 <div style="display:flex;align-items:center;gap:5px;background:rgba(51,65,85,0.5);border-radius:8px;padding:4px 10px;">
-                                    <span style="color:#60a5fa;font-size:13px;font-weight:700;">🎵 파동의 빠르기</span>
+                                    <span style="color:#60a5fa;font-size:13px;font-weight:700;">🎵 감정 리듬</span>
                                     <span style="color:#94a3b8;font-size:12px;">=</span>
-                                    <span style="color:#cbd5e1;font-size:12px;font-weight:600;">안정↔자유 (X축)</span>
+                                    <span style="color:#cbd5e1;font-size:12px;font-weight:600;">안정↔변동 (X축)</span>
                                 </div>
                                 <div style="display:flex;align-items:center;gap:5px;background:rgba(51,65,85,0.5);border-radius:8px;padding:4px 10px;">
                                     <span style="color:#a78bfa;font-size:13px;font-weight:700;">🎨 색상</span>
@@ -1358,7 +1358,7 @@
                                 <!-- X축 라벨 (그리드 바깥 아래) -->
                                 <div style="position:absolute;bottom:-22px;left:0;width:100%;display:flex;justify-content:space-between;pointer-events:none;">
                                     <span style="color:#60a5fa;font-size:10px;font-weight:700;">◀ 안정</span>
-                                    <span style="color:#60a5fa;font-size:10px;font-weight:700;">자유 ▶</span>
+                                    <span style="color:#60a5fa;font-size:10px;font-weight:700;">변동 ▶</span>
                                 </div>
                                 <!-- 그리드 영역 -->
                                 <div style="position:relative;aspect-ratio:1;overflow:hidden;border-radius:14px;border:1px solid #334155;">
@@ -1420,16 +1420,16 @@
                                     </svg>
                                     <!-- 4분면 이름 (코너) - 왼쪽=안정, 오른쪽=자유 -->
                                     <div style="position:absolute;top:4%;left:4%;z-index:2;">
-                                        <span style="color:#60a5fa;font-size:11px;font-weight:700;opacity:0.6;">⚡ 활발+안정</span>
+                                        <span style="color:#60a5fa;font-size:11px;font-weight:700;opacity:0.6;">⚡ 에너지높+안정</span>
                                     </div>
                                     <div style="position:absolute;top:4%;right:4%;z-index:2;text-align:right;">
-                                        <span style="color:#fbbf24;font-size:11px;font-weight:700;opacity:0.6;">활발+자유 🔥</span>
+                                        <span style="color:#fbbf24;font-size:11px;font-weight:700;opacity:0.6;">에너지높+변동 🔥</span>
                                     </div>
                                     <div style="position:absolute;bottom:4%;left:4%;z-index:2;">
                                         <span style="color:#34d399;font-size:11px;font-weight:700;opacity:0.6;">🌿 차분+안정</span>
                                     </div>
                                     <div style="position:absolute;bottom:4%;right:4%;z-index:2;text-align:right;">
-                                        <span style="color:#c084fc;font-size:11px;font-weight:700;opacity:0.6;">차분+감성 🌙</span>
+                                        <span style="color:#c084fc;font-size:11px;font-weight:700;opacity:0.6;">차분+변동 🌙</span>
                                     </div>
                                     <!-- ♂♀ 위치 점 -->
                                     <div id="quad-dot-m" style="position:absolute;width:30px;height:30px;border-radius:50%;background:var(--male-color);border:3px solid rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;z-index:5;transition:all 0.6s ease;top:25%;left:25%;transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(0,0,0,0.2),0 2px 10px rgba(0,0,0,0.4);">♂</div>
@@ -1449,15 +1449,20 @@
                             </div>
                             <!-- 파동 분석: 세로 배치 -->
                             <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
-                                <!-- 파동의 크기 -->
+                                <!-- 관계 에너지 -->
                                 <div style="background:#fff;border-radius:12px;padding:12px 14px;border:1px solid #e0e7ff;">
-                                    <div style="font-size:13px;font-weight:700;color:#1e3a5f;margin-bottom:8px;">⛰️ 파동의 크기 <span style="font-size:11px;color:#6b7280;font-weight:500;">(에너지)</span></div>
+                                    <div style="font-size:13px;font-weight:700;color:#1e3a5f;margin-bottom:8px;">⛰️ 관계 에너지 <span style="font-size:11px;color:#6b7280;font-weight:500;">(적극성)</span></div>
                                     <div id="wave-amp-gauge-m"><!-- 10-bar gauge --></div>
                                 </div>
-                                <!-- 파동의 빠르기 -->
+                                <!-- 감정 리듬 -->
                                 <div style="background:#fff;border-radius:12px;padding:12px 14px;border:1px solid #e0e7ff;">
-                                    <div style="font-size:13px;font-weight:700;color:#1e3a5f;margin-bottom:8px;">🎵 파동의 빠르기 <span style="font-size:11px;color:#6b7280;font-weight:500;">(안정↔자유)</span></div>
-                                    <div id="wave-stab-gauge-m"><!-- 10-bar gauge --></div>
+                                    <div style="font-size:13px;font-weight:700;color:#1e3a5f;margin-bottom:8px;">🎵 감정 리듬 <span style="font-size:11px;color:#6b7280;font-weight:500;">(안정↔변동)</span></div>
+                                    <div id="wave-freq-gauge-m"><!-- 10-bar gauge --></div>
+                                </div>
+                                <!-- 리드/팔로우 (★ 신규) -->
+                                <div style="background:#fff;border-radius:12px;padding:12px 14px;border:1px solid #e0e7ff;">
+                                    <div style="font-size:13px;font-weight:700;color:#1e3a5f;margin-bottom:8px;">🤝 리드/팔로우 <span style="font-size:11px;color:#6b7280;font-weight:500;">(주도성)</span></div>
+                                    <div id="wave-phase-gauge-m"><!-- 10-bar gauge --></div>
                                 </div>
                                 <!-- 대표 색상 -->
                                 <div style="background:#fff;border-radius:12px;padding:12px 14px;border:1px solid #e0e7ff;">
@@ -1473,6 +1478,7 @@
                             <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
                                 <span id="wave-tag-color-m" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #93c5fd;color:#2563eb;">🎨 —</span>
                                 <span id="wave-tag-quad-m" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #93c5fd;color:#475569;">⚡ —</span>
+                                <span id="wave-tag-phase-m" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #93c5fd;color:#92400e;">🤝 —</span>
                             </div>
                             <!-- 종합 설명 -->
                             <div id="wave-card-desc-m" style="font-size:15px;color:#1e293b;line-height:1.9;background:rgba(255,255,255,0.85);border-radius:12px;padding:14px 16px;font-weight:500;letter-spacing:-0.2px;">분석중...</div>
@@ -1486,15 +1492,20 @@
                             </div>
                             <!-- 파동 분석: 세로 배치 -->
                             <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
-                                <!-- 파동의 크기 -->
+                                <!-- 관계 에너지 -->
                                 <div style="background:#fff;border-radius:12px;padding:12px 14px;border:1px solid #fce7f3;">
-                                    <div style="font-size:13px;font-weight:700;color:#831843;margin-bottom:8px;">⛰️ 파동의 크기 <span style="font-size:11px;color:#6b7280;font-weight:500;">(에너지)</span></div>
+                                    <div style="font-size:13px;font-weight:700;color:#831843;margin-bottom:8px;">⛰️ 관계 에너지 <span style="font-size:11px;color:#6b7280;font-weight:500;">(적극성)</span></div>
                                     <div id="wave-amp-gauge-f"><!-- 10-bar gauge --></div>
                                 </div>
-                                <!-- 파동의 빠르기 -->
+                                <!-- 감정 리듬 -->
                                 <div style="background:#fff;border-radius:12px;padding:12px 14px;border:1px solid #fce7f3;">
-                                    <div style="font-size:13px;font-weight:700;color:#831843;margin-bottom:8px;">🎵 파동의 빠르기 <span style="font-size:11px;color:#6b7280;font-weight:500;">(안정↔자유)</span></div>
-                                    <div id="wave-stab-gauge-f"><!-- 10-bar gauge --></div>
+                                    <div style="font-size:13px;font-weight:700;color:#831843;margin-bottom:8px;">🎵 감정 리듬 <span style="font-size:11px;color:#6b7280;font-weight:500;">(안정↔변동)</span></div>
+                                    <div id="wave-freq-gauge-f"><!-- 10-bar gauge --></div>
+                                </div>
+                                <!-- 리드/팔로우 (★ 신규) -->
+                                <div style="background:#fff;border-radius:12px;padding:12px 14px;border:1px solid #fce7f3;">
+                                    <div style="font-size:13px;font-weight:700;color:#831843;margin-bottom:8px;">🤝 리드/팔로우 <span style="font-size:11px;color:#6b7280;font-weight:500;">(주도성)</span></div>
+                                    <div id="wave-phase-gauge-f"><!-- 10-bar gauge --></div>
                                 </div>
                                 <!-- 대표 색상 -->
                                 <div style="background:#fff;border-radius:12px;padding:12px 14px;border:1px solid #fce7f3;">
@@ -1510,6 +1521,7 @@
                             <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
                                 <span id="wave-tag-color-f" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #f9a8d4;color:#be185d;">🎨 —</span>
                                 <span id="wave-tag-quad-f" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #f9a8d4;color:#475569;">⚡ —</span>
+                                <span id="wave-tag-phase-f" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #f9a8d4;color:#92400e;">🤝 —</span>
                             </div>
                             <!-- 종합 설명 -->
                             <div id="wave-card-desc-f" style="font-size:15px;color:#1e293b;line-height:1.9;background:rgba(255,255,255,0.85);border-radius:12px;padding:14px 16px;font-weight:500;letter-spacing:-0.2px;">분석중...</div>
@@ -1533,59 +1545,88 @@
                             </summary>
                             <div style="background:#f8fafc;border-radius:16px;padding:20px;border:1px solid #e2e8f0;margin-top:8px;">
 
-                                <!-- 에너지 -->
+                                <!-- ① 관계 에너지 -->
                                 <div style="margin-bottom:20px;">
                                     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
                                         <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:8px;font-size:14px;">⛰️</span>
-                                        <span style="font-size:14px;font-weight:700;color:#1e293b;">파동의 크기 = 에너지 레벨</span>
+                                        <span style="font-size:14px;font-weight:700;color:#1e293b;">관계 에너지 = 얼마나 적극적인가</span>
                                     </div>
+                                    <div style="font-size:12px;color:#6b7280;margin-bottom:8px;line-height:1.5;">외향성, 개방성, 애착안정이 높을수록 에너지↑ / 애착회피가 높으면 에너지↓</div>
                                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #ef4444;">
                                             <div style="font-size:11px;font-weight:700;color:#ef4444;margin-bottom:2px;">🔴 매우 높음</div>
-                                            <div style="font-size:12px;color:#374151;">도전과 모험을 사랑하는 적극적인 사람</div>
+                                            <div style="font-size:12px;color:#374151;">관계에 온 마음을 쏟는 열정적인 사람</div>
                                         </div>
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #f97316;">
                                             <div style="font-size:11px;font-weight:700;color:#f97316;margin-bottom:2px;">🟠 높음</div>
-                                            <div style="font-size:12px;color:#374151;">활발하고 사교적인 사람</div>
+                                            <div style="font-size:12px;color:#374151;">먼저 연락하고 만남을 즐기는 적극형</div>
                                         </div>
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #22c55e;">
                                             <div style="font-size:11px;font-weight:700;color:#22c55e;margin-bottom:2px;">🟢 보통</div>
-                                            <div style="font-size:12px;color:#374151;">편안하고 여유로운 사람</div>
+                                            <div style="font-size:12px;color:#374151;">상황에 따라 유연하게 에너지를 조절</div>
                                         </div>
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #3b82f6;">
                                             <div style="font-size:11px;font-weight:700;color:#3b82f6;margin-bottom:2px;">🔵 낮음</div>
-                                            <div style="font-size:12px;color:#374151;">조용하고 사려 깊은 사람</div>
+                                            <div style="font-size:12px;color:#374151;">차분하게 관계를 유지하는 조용한 사람</div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- 안정감 -->
+                                <!-- ② 감정 리듬 -->
                                 <div style="margin-bottom:20px;">
                                     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
                                         <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:linear-gradient(135deg,#dbeafe,#bfdbfe);border-radius:8px;font-size:14px;">🎵</span>
-                                        <span style="font-size:14px;font-weight:700;color:#1e293b;">파동의 빠르기 = 안정감</span>
+                                        <span style="font-size:14px;font-weight:700;color:#1e293b;">감정 리듬 = 얼마나 예측 가능한가</span>
                                     </div>
+                                    <div style="font-size:12px;color:#6b7280;margin-bottom:8px;line-height:1.5;">애착불안, 개방성이 높으면 변동↑ / 정서안정, 성실성이 높으면 안정↑</div>
                                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #8b5cf6;">
                                             <div style="font-size:11px;font-weight:700;color:#8b5cf6;margin-bottom:2px;">매우 안정</div>
-                                            <div style="font-size:12px;color:#374151;">신중하고 흔들리지 않는 사람</div>
+                                            <div style="font-size:12px;color:#374151;">언제 만나도 한결같은 사람</div>
                                         </div>
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #06b6d4;">
                                             <div style="font-size:11px;font-weight:700;color:#06b6d4;margin-bottom:2px;">안정적</div>
-                                            <div style="font-size:12px;color:#374151;">계획적이고 꾸준한 사람</div>
+                                            <div style="font-size:12px;color:#374151;">감정 기복이 적고 꾸준한 사람</div>
                                         </div>
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #f59e0b;">
-                                            <div style="font-size:11px;font-weight:700;color:#f59e0b;margin-bottom:2px;">보통</div>
-                                            <div style="font-size:12px;color:#374151;">상황에 따라 유연한 사람</div>
+                                            <div style="font-size:11px;font-weight:700;color:#f59e0b;margin-bottom:2px;">유연한</div>
+                                            <div style="font-size:12px;color:#374151;">변화에 잘 적응하는 다채로운 사람</div>
                                         </div>
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #ec4899;">
-                                            <div style="font-size:11px;font-weight:700;color:#ec4899;margin-bottom:2px;">자유로운</div>
-                                            <div style="font-size:12px;color:#374151;">즉흥적이고 자유분방한 사람</div>
+                                            <div style="font-size:11px;font-weight:700;color:#ec4899;margin-bottom:2px;">역동적</div>
+                                            <div style="font-size:12px;color:#374151;">감정의 파도가 크고 매력이 다양한 사람</div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- 두 사람 비교 -->
+                                <!-- ③ 리드/팔로우 (★ 신규) -->
+                                <div style="margin-bottom:20px;">
+                                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                                        <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:linear-gradient(135deg,#fef3c7,#fed7aa);border-radius:8px;font-size:14px;">🤝</span>
+                                        <span style="font-size:14px;font-weight:700;color:#1e293b;">리드/팔로우 = 누가 먼저 다가가는가</span>
+                                    </div>
+                                    <div style="font-size:12px;color:#6b7280;margin-bottom:8px;line-height:1.5;">외향성, 애착안정이 높으면 리드↑ / 우호성, 애착회피가 높으면 팔로우↑</div>
+                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                                        <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #8b5cf6;">
+                                            <div style="font-size:11px;font-weight:700;color:#8b5cf6;margin-bottom:2px;">🤝 팔로우형</div>
+                                            <div style="font-size:12px;color:#374151;">상대에 맞추고 배려하는 스타일</div>
+                                        </div>
+                                        <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #06b6d4;">
+                                            <div style="font-size:11px;font-weight:700;color:#06b6d4;margin-bottom:2px;">⚖️ 상황형</div>
+                                            <div style="font-size:12px;color:#374151;">때에 따라 이끌기도, 따르기도</div>
+                                        </div>
+                                        <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #f97316;">
+                                            <div style="font-size:11px;font-weight:700;color:#f97316;margin-bottom:2px;">🏃 리드형</div>
+                                            <div style="font-size:12px;color:#374151;">먼저 다가가고 관계를 주도하는 스타일</div>
+                                        </div>
+                                        <div style="background:#fff;border-radius:10px;padding:10px 12px;border-left:3px solid #ef4444;">
+                                            <div style="font-size:11px;font-weight:700;color:#ef4444;margin-bottom:2px;">🔥 강한 리드</div>
+                                            <div style="font-size:12px;color:#374151;">모든 관계에서 선두에 서는 타입</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ④ 두 사람 비교 -->
                                 <div style="margin-bottom:20px;">
                                     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
                                         <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:linear-gradient(135deg,#fce7f3,#fbcfe8);border-radius:8px;font-size:14px;">💞</span>
@@ -1603,24 +1644,34 @@
                                             <div style="font-size:11px;color:#374151;">서로 다른 매력의 사람</div>
                                         </div>
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;text-align:center;">
-                                            <div style="font-size:18px;margin-bottom:4px;">📏📏</div>
-                                            <div style="font-size:11px;font-weight:700;color:#059669;margin-bottom:2px;">크기가 비슷하면</div>
-                                            <div style="font-size:11px;color:#374151;">에너지가 맞는 사이</div>
+                                            <div style="font-size:18px;margin-bottom:4px;">⛰️⛰️</div>
+                                            <div style="font-size:11px;font-weight:700;color:#059669;margin-bottom:2px;">에너지가 비슷하면</div>
+                                            <div style="font-size:11px;color:#374151;">관계 참여도가 맞는 사이</div>
                                         </div>
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;text-align:center;">
-                                            <div style="font-size:18px;margin-bottom:4px;">📏📐</div>
-                                            <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:2px;">크기가 다르면</div>
+                                            <div style="font-size:18px;margin-bottom:4px;">⛰️🌿</div>
+                                            <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:2px;">에너지가 다르면</div>
                                             <div style="font-size:11px;color:#374151;">서로의 에너지를 채워주는 사이</div>
                                         </div>
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;text-align:center;">
                                             <div style="font-size:18px;margin-bottom:4px;">🎵🎵</div>
-                                            <div style="font-size:11px;font-weight:700;color:#059669;margin-bottom:2px;">빠르기가 비슷하면</div>
-                                            <div style="font-size:11px;color:#374151;">생활 리듬이 맞는 사이</div>
+                                            <div style="font-size:11px;font-weight:700;color:#059669;margin-bottom:2px;">리듬이 비슷하면</div>
+                                            <div style="font-size:11px;color:#374151;">서로를 예측하기 쉬운 사이</div>
                                         </div>
                                         <div style="background:#fff;border-radius:10px;padding:10px 12px;text-align:center;">
                                             <div style="font-size:18px;margin-bottom:4px;">🎵🥁</div>
-                                            <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:2px;">빠르기가 다르면</div>
-                                            <div style="font-size:11px;color:#374151;">서로에게 새로움을 주는 사이</div>
+                                            <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:2px;">리듬이 다르면</div>
+                                            <div style="font-size:11px;color:#374151;">감정의 닻과 다채로움의 보완</div>
+                                        </div>
+                                        <div style="background:#fff;border-radius:10px;padding:10px 12px;text-align:center;">
+                                            <div style="font-size:18px;margin-bottom:4px;">🏃🤝</div>
+                                            <div style="font-size:11px;font-weight:700;color:#059669;margin-bottom:2px;">리드+팔로우</div>
+                                            <div style="font-size:11px;color:#374151;">역할이 자연스럽게 나뉘는 사이</div>
+                                        </div>
+                                        <div style="background:#fff;border-radius:10px;padding:10px 12px;text-align:center;">
+                                            <div style="font-size:18px;margin-bottom:4px;">🏃🏃</div>
+                                            <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:2px;">둘 다 리드형</div>
+                                            <div style="font-size:11px;color:#374151;">역할 조율이 관계의 열쇠</div>
                                         </div>
                                     </div>
                                 </div>
@@ -1834,10 +1885,10 @@
     /* --- STEP 2. Limbic System (감정/애착/갈등) --- */
     // 9. 연락
     { id: 'q_contact_style', section: 'Limbic', category: '애착 유형', type: 'crossover', text_me: '나의 연락 스타일은 어떤 편이에요?', text_partner: '상대방에게 바라는 연락 빈도는 어떤 편이에요?', options: [ 
-        { value: '1', text: '일상을 실시간으로 공유하고 자주 연락하고 싶어요.', text_partner: '일상을 실시간으로 공유하고 자주 연락하는 편이에요.', tag: '#애착불안'}, 
-        { value: '2', text: '출퇴근이나 식사 등 주요 시점엔 꼭 연락하는 편이에요.', text_partner: '출퇴근이나 식사 등 주요 시점에 꼭 연락하는 편이에요.', tag: '#성실성'}, 
-        { value: '3', text: '특별한 용건이 있거나 자기 전에만 통화하면 충분해요.', text_partner: '특별한 용건이 있거나 자기 전에만 통화하는 편이에요.', tag: '#애착회피'}, 
-        { value: '4', text: '서로 부담 없이 편할 때 연락하는 게 좋아요.', text_partner: '서로 부담 없이 편할 때 연락하는 편이에요.', tag: '#애착안정'} 
+        { value: '1', text: '일상을 실시간으로 공유하고 자주 연락하고 싶어요.', tag: '#애착불안'}, 
+        { value: '2', text: '출퇴근이나 식사 등 주요 시점엔 꼭 연락하는 편이에요.', tag: '#성실성'}, 
+        { value: '3', text: '특별한 용건이 있거나 자기 전에만 통화하면 충분해요.', tag: '#애착회피'}, 
+        { value: '4', text: '서로 부담 없이 편할 때 연락하는 게 좋아요.', tag: '#애착안정'} 
     ]},
     // 10. 부재 (Dynamic)
     { id: 'q_absence', section: 'Limbic', category: '애착 반응', type: 'dynamic', text: '연인이 3시간째 연락이 없어요. 어떻게 해요?', options: [ 
@@ -2536,20 +2587,29 @@
             let offset = 0;
             const mColors = getDominantColor(maleAxes); 
             const fColors = getDominantColor(femaleAxes); 
+            // ── 새 3축 공식 (v3.0) ──
             const calcAmplitude = (axes) => {
-                const energyScore = (axes['외향성'] || 0) * 1.2 + (axes['개방성'] || 0) * 0.8 + (axes['애착불안'] || 0) * 0.5;
-                return Math.min(maxAmplitude, 15 + (energyScore * 5));
+                const raw = (axes['외향성']||0)*1.2 + (axes['개방성']||0)*0.6 + (axes['애착안정']||0)*0.4 - (axes['애착회피']||0)*0.8;
+                const level = Math.max(1, Math.min(10, Math.round(raw + 3)));
+                return 8 + (level - 1) / 9 * (maxAmplitude - 8);
             };
             const ampM = calcAmplitude(maleAxes);
             const ampF = calcAmplitude(femaleAxes);
             const calcFrequency = (axes) => {
-                const stabilityScore = (axes['성실성'] || 0) + (axes['정서안정'] || 0) + (axes['애착안정'] || 0) * 1.5;
-                return Math.max(0.005, 0.03 - (stabilityScore * 0.002));
+                const raw = (axes['애착불안']||0)*1.0 + (axes['개방성']||0)*0.4 - (axes['정서안정']||0)*0.8 - (axes['성실성']||0)*0.3;
+                const level = Math.max(1, Math.min(10, Math.round(raw + 4)));
+                return 0.008 + (level - 1) / 9 * 0.027;
             };
             const freqM = calcFrequency(maleAxes);
             const freqF = calcFrequency(femaleAxes);
-            const isSynced = score >= 70;
-            const phaseDiff = isSynced ? 0.3 : 2.5; 
+            // 위상: 개인 성향 기반 (리드/팔로우)
+            const calcPhase = (axes) => {
+                const raw = (axes['외향성']||0)*0.5 + (axes['애착안정']||0)*0.3 - (axes['우호성']||0)*0.6 - (axes['애착회피']||0)*0.5;
+                return Math.max(1, Math.min(10, Math.round(raw + 4)));
+            };
+            const mPhaseLv = calcPhase(maleAxes);
+            const fPhaseLv = calcPhase(femaleAxes);
+            const phaseDiff = (mPhaseLv - fPhaseLv) * 0.3; 
             function animate() {
                 ctx.clearRect(0, 0, width, height);
                 ctx.beginPath();
@@ -3059,51 +3119,65 @@
                 ].sort((a,b) => b.v - a.v);
                 const top1 = all[0].k, top2 = all[1].k;
 
-                const amp = (axes['외향성']||0)*1.2 + (axes['개방성']||0)*0.8 + (axes['애착불안']||0)*0.5;
-                const speedRaw = (axes['애착불안']||0)*1.0 + (axes['애착회피']||0)*1.2 + (axes['개방성']||0)*0.5;
+                const amp = (axes['외향성']||0)*1.2 + (axes['개방성']||0)*0.6 + (axes['애착안정']||0)*0.4 - (axes['애착회피']||0)*0.8;
+                const freqRaw = (axes['애착불안']||0)*1.0 + (axes['개방성']||0)*0.4 - (axes['정서안정']||0)*0.8 - (axes['성실성']||0)*0.3;
+                const phaseRaw = (axes['외향성']||0)*0.5 + (axes['애착안정']||0)*0.3 - (axes['우호성']||0)*0.6 - (axes['애착회피']||0)*0.5;
 
                 // ── 10분할 레벨 ──
-                const ampLevel = Math.max(1, Math.min(10, Math.round(amp) || 1));
-                // 빠르기: 높을수록 빠름=자유, 낮을수록 느림=안정
-                const speedLevel = Math.max(1, Math.min(10, Math.round(speedRaw) || 1));
+                const ampLevel = Math.max(1, Math.min(10, Math.round(amp + 3) || 1));
+                const freqLevel = Math.max(1, Math.min(10, Math.round(freqRaw + 4) || 1));
+                const phaseLevel = Math.max(1, Math.min(10, Math.round(phaseRaw + 4) || 1));
 
                 // dot 위치용 연속값 (레벨 기반)
                 const ampPct = ((ampLevel - 1) / 9) * 100;
-                const stabPct = ((speedLevel - 1) / 9) * 100;
+                const freqPct = ((freqLevel - 1) / 9) * 100;
 
-                // 사분면: ampHigh=활발, isStable=느림(안정)
+                // 사분면: ampHigh=에너지높음, freqLow=안정적
                 const ampHigh = ampLevel >= 6;
-                const isStable = speedLevel <= 5;
-                const quad = (ampHigh ? 'H' : 'L') + (isStable ? 'H' : 'L');
-                // HH=활발+안정, HL=활발+자유, LH=차분+안정, LL=차분+감성
+                const freqLow = freqLevel <= 5;
+                const quad = (ampHigh ? 'H' : 'L') + (freqLow ? 'H' : 'L');
+                // HH=에너지높+안정, HL=에너지높+변동, LH=에너지낮+안정, LL=에너지낮+변동
 
                 const ampText = ampLevel + '/10';
-                const stabText = speedLevel + '/10';
+                const freqText = freqLevel + '/10';
+                const phaseText = phaseLevel + '/10';
 
-                // ── 10단계 설명 ──
+                // ── 10단계 설명 (재설계 v3.0) ──
                 const ampDescs = ['',
-                    '아주 조용하고 내면 세계가 넓어요. 혼자만의 시간에서 에너지를 충전해요.',
-                    '조용한 편이에요. 소수의 사람과 깊은 대화를 나눌 때 가장 편안해요.',
-                    '차분한 타입이에요. 낯선 환경보단 익숙한 곳에서 편하게 지내요.',
-                    '약간 차분해요. 평소엔 조용하지만 관심 분야에선 적극적이에요.',
-                    '중간이에요. 상황에 따라 활발하기도 하고 조용하기도 해요.',
-                    '활발한 편이에요. 새로운 경험을 즐기고 움직이는 걸 좋아해요.',
-                    '적극적이에요. 사람들과 어울리길 좋아하고 행동력이 있어요.',
-                    '에너지가 넘쳐요. 주변에 활력을 주고 분위기를 이끌어요.',
-                    '매우 활발해요. 어디서든 눈에 띄고 리더십이 강해요.',
-                    '최고 에너지예요. 열정과 추진력이 폭발적이에요.'
+                    '관계에서 매우 조용한 편이에요. 가까운 사이에서도 표현보다 마음속에 담아두는 타입이에요.',
+                    '표현이 적지만 진심이 담긴 사람이에요. 소수의 사람에게만 마음을 열어요.',
+                    '차분하게 관계를 유지해요. 조용하지만 함께 있으면 편안한 안정감이 느껴져요.',
+                    '부드럽고 온화한 에너지예요. 상대방 페이스에 맞춰주며 편안한 분위기를 만들어요.',
+                    '상황에 따라 적극적이기도, 조용하기도 해요. 관계에서 유연하게 에너지를 조절해요.',
+                    '관계에 따뜻한 에너지를 불어넣어요. 함께 있으면 기분이 좋아지는 사람이에요.',
+                    '관계에 적극적으로 참여해요. 먼저 연락하고, 만남을 즐기는 행동력이 있어요.',
+                    '넘치는 에너지로 주변을 밝혀요. 함께 있으면 활력이 전해지는 사람이에요.',
+                    '관계에 온 마음을 쏟는 사람이에요. 사랑하는 사람에게 아낌없이 에너지를 줘요.',
+                    '최고 수준의 관계 에너지예요. 강렬한 애정 표현과 적극적인 참여가 특징이에요.'
                 ];
-                const speedDescs = ['',
-                    '매우 느리고 안정적이에요. 감정 기복이 거의 없고 늘 한결같아요.',
-                    '꾸준하고 계획적이에요. 흔들리지 않는 단단한 내면이 있어요.',
-                    '안정적인 편이에요. 신중하게 판단하고 꾸준히 실행해요.',
-                    '약간 안정적이에요. 계획을 세우되 유연하게 대처해요.',
-                    '중간이에요. 안정과 변화를 고루 즐기는 균형형이에요.',
-                    '약간 빠른 편이에요. 변화를 즐기면서도 기본은 챙겨요.',
-                    '빠른 편이에요. 틀에 얽매이지 않고 자유롭게 살아요.',
-                    '꽤 빨라요. 즉흥적이고 감정 표현이 풍부해요.',
-                    '매우 빨라요. 변화무쌍하고 매 순간 다른 매력이 있어요.',
-                    '최고 속도예요. 거침없는 자유로운 영혼이에요.'
+                const freqDescs = ['',
+                    '감정이 거의 흔들리지 않아요. 언제 만나도 한결같은 모습이에요.',
+                    '감정 기복이 적고 꾸준해요. 약속과 계획을 잘 지키는 믿음직한 사람이에요.',
+                    '대체로 안정적이에요. 가끔 감정이 드러나지만 빠르게 평정심을 찾아요.',
+                    '일관된 태도를 유지하면서도 필요할 때 유연하게 반응해요.',
+                    '안정과 변화 사이에서 균형을 잡아요. 상황에 따라 다른 모습을 보여요.',
+                    '변화에 잘 적응하고 다양한 반응을 보여요. 같은 상황에서도 다른 매력을 발견할 수 있어요.',
+                    '감정 표현이 다채로워요. 기쁨도 슬픔도 깊이 느끼고 솔직하게 드러내요.',
+                    '작은 변화에도 감정이 움직여요. 섬세한 감각으로 상대방의 기분을 잘 알아채요.',
+                    '감정의 파도가 크고 빈번해요. 예측하기 어렵지만 그만큼 다양한 매력이 있어요.',
+                    '감정과 행동이 자유분방해요. 매 순간 새로운 모습을 보여주는 예측 불가의 매력.'
+                ];
+                const phaseDescs = ['',
+                    '상대방에게 완전히 맞추는 스타일이에요. 상대의 리드를 기다리며 조용히 따라가요.',
+                    '상대의 리듬에 자연스럽게 맞춰요. 요청이 있을 때 응하는 편안한 반응형이에요.',
+                    '상대를 먼저 배려하고 반응을 살핀 후에 움직여요. 관계의 조율자 역할이에요.',
+                    '상대와 보조를 맞추되, 가끔은 먼저 제안도 해요. 부드러운 균형감이 있어요.',
+                    '상황에 따라 리드하기도, 따라가기도 해요. 역할에 유연한 사람이에요.',
+                    '먼저 움직이는 편이지만 상대 반응을 보며 속도를 조절해요.',
+                    '대화를 먼저 시작하고, 만남을 제안하는 적극적인 스타일이에요.',
+                    '관계의 방향을 이끌어가는 사람이에요. 계획하고 실행하는 데 자신감이 있어요.',
+                    '먼저 다가가고, 분위기를 만들고, 관계를 주도하는 에너지가 강해요.',
+                    '모든 관계에서 선두에 서는 타입이에요. 주도적이고 결단력 있게 이끌어가요.'
                 ];
 
                 // ── 10-bar 게이지 HTML ──
@@ -3120,10 +3194,12 @@
                         '<div style="display:flex;gap:2px;">' + bars + '</div>';
                 }
 
-                const ampHint = makeGauge10(ampLevel, '작음', '큼', colorHex0) +
+                const ampHint = makeGauge10(ampLevel, '조용', '적극', colorHex0) +
                     '<div style="font-size:12px;color:#1e293b;line-height:1.6;margin-top:8px;font-weight:500;">' + ampDescs[ampLevel] + '</div>';
-                const stabHint = makeGauge10(speedLevel, '느림 (안정)', '빠름 (자유)', colorHex0) +
-                    '<div style="font-size:12px;color:#1e293b;line-height:1.6;margin-top:8px;font-weight:500;">' + speedDescs[speedLevel] + '</div>';
+                const freqHint = makeGauge10(freqLevel, '안정', '변동', colorHex0) +
+                    '<div style="font-size:12px;color:#1e293b;line-height:1.6;margin-top:8px;font-weight:500;">' + freqDescs[freqLevel] + '</div>';
+                const phaseHint = makeGauge10(phaseLevel, '팔로우', '리드', colorHex0) +
+                    '<div style="font-size:12px;color:#1e293b;line-height:1.6;margin-top:8px;font-weight:500;">' + phaseDescs[phaseLevel] + '</div>';
 
                 const colorInfo = waveColorMeta[top1] || waveColorMeta['우호성'];
                 const colorHintMap = {
@@ -3358,11 +3434,13 @@
                 const cDetail = colorDetail[top1] || '';
 
                 const desc = `<b style="color:${labelColor}">"${shortDesc}"</b><br><br>` +
-                    `⛰️ 파동의 크기 <b>${ampLevel}/10</b> — ${ampDescs[ampLevel]}<br>` +
-                    `🎵 파동의 빠르기 <b>${speedLevel}/10</b> — ${speedDescs[speedLevel]}<br>` +
+                    `⛰️ 관계 에너지 <b>${ampLevel}/10</b> — ${ampDescs[ampLevel]}<br>` +
+                    `🎵 감정 리듬 <b>${freqLevel}/10</b> — ${freqDescs[freqLevel]}<br>` +
+                    `🤝 리드/팔로우 <b>${phaseLevel}/10</b> — ${phaseDescs[phaseLevel]}<br>` +
                     `🎨 ${cDetail}`;
 
-                const quadMeta = { HH: { emoji: '⚡', label: '활발+안정적인' }, HL: { emoji: '🔥', label: '활발+자유로운' }, LH: { emoji: '🌿', label: '차분+안정적인' }, LL: { emoji: '🌙', label: '차분+감성적인' } };
+                const quadMeta = { HH: { emoji: '⚡', label: '에너지높+안정적' }, HL: { emoji: '🔥', label: '에너지높+변동적' }, LH: { emoji: '🌿', label: '차분+안정적' }, LL: { emoji: '🌙', label: '차분+변동적' } };
+                const phaseMeta = phaseLevel >= 7 ? { emoji: '🏃', label: '리드형' } : phaseLevel <= 4 ? { emoji: '🤝', label: '팔로우형' } : { emoji: '⚖️', label: '상황형' };
                 const qm = quadMeta[quad];
 
                 return {
@@ -3372,39 +3450,46 @@
                     color: traitColors[top1] || traitColors['우호성'],
                     emoji: colorInfo.emoji,
                     ampPct: ampPct,
-                    stabPct: stabPct,
+                    freqPct: freqPct,
                     ampText: ampText,
-                    stabText: stabText,
+                    freqText: freqText,
+                    phaseText: phaseText,
                     ampHint: ampHint,
-                    stabHint: stabHint,
+                    freqHint: freqHint,
+                    phaseHint: phaseHint,
                     colorHint: colorHint,
                     colorTag: `${colorInfo.emoji} ${colorInfo.name} · ${colorInfo.desc}`,
                     quadTag: `${qm.emoji} ${qm.label}`,
+                    phaseTag: `${phaseMeta.emoji} ${phaseMeta.label}`,
                     colorHex: (traitColors[top1] || traitColors['우호성'])[0],
                     colorName: colorInfo.name,
-                    // 그리드 좌표: level 1→5%, level 10→95% (30px 셀 기준)
-                    quadDotX: ((speedLevel - 1) / 9) * 90 + 5,
+                    quadDotX: ((freqLevel - 1) / 9) * 90 + 5,
                     quadDotY: 95 - ((ampLevel - 1) / 9) * 90,
                     ampLevel: ampLevel,
-                    speedLevel: speedLevel
+                    freqLevel: freqLevel,
+                    phaseLevel: phaseLevel
                 };
             }
 
             function describeCombined(sc, mA, fA, mColorKey, fColorKey) {
-                const mAmpRaw = (mA['외향성']||0)*1.2 + (mA['개방성']||0)*0.8 + (mA['애착불안']||0)*0.5;
-                const fAmpRaw = (fA['외향성']||0)*1.2 + (fA['개방성']||0)*0.8 + (fA['애착불안']||0)*0.5;
-                const mSpeedRaw = (mA['애착불안']||0)*1.0 + (mA['애착회피']||0)*1.2 + (mA['개방성']||0)*0.5;
-                const fSpeedRaw = (fA['애착불안']||0)*1.0 + (fA['애착회피']||0)*1.2 + (fA['개방성']||0)*0.5;
-                // 10레벨 변환
-                const mAmpLv = Math.max(1, Math.min(10, Math.round(mAmpRaw) || 1));
-                const fAmpLv = Math.max(1, Math.min(10, Math.round(fAmpRaw) || 1));
-                const mSpeedLv = Math.max(1, Math.min(10, Math.round(mSpeedRaw) || 1));
-                const fSpeedLv = Math.max(1, Math.min(10, Math.round(fSpeedRaw) || 1));
+                // ── 새 3축 공식 (v3.0) ──
+                const mAmpRaw = (mA['외향성']||0)*1.2 + (mA['개방성']||0)*0.6 + (mA['애착안정']||0)*0.4 - (mA['애착회피']||0)*0.8;
+                const fAmpRaw = (fA['외향성']||0)*1.2 + (fA['개방성']||0)*0.6 + (fA['애착안정']||0)*0.4 - (fA['애착회피']||0)*0.8;
+                const mFreqRaw = (mA['애착불안']||0)*1.0 + (mA['개방성']||0)*0.4 - (mA['정서안정']||0)*0.8 - (mA['성실성']||0)*0.3;
+                const fFreqRaw = (fA['애착불안']||0)*1.0 + (fA['개방성']||0)*0.4 - (fA['정서안정']||0)*0.8 - (fA['성실성']||0)*0.3;
+                const mPhaseRaw = (mA['외향성']||0)*0.5 + (mA['애착안정']||0)*0.3 - (mA['우호성']||0)*0.6 - (mA['애착회피']||0)*0.5;
+                const fPhaseRaw = (fA['외향성']||0)*0.5 + (fA['애착안정']||0)*0.3 - (fA['우호성']||0)*0.6 - (fA['애착회피']||0)*0.5;
+                const clamp = (v,o) => Math.max(1, Math.min(10, Math.round(v + o) || 1));
+                const mAmpLv = clamp(mAmpRaw,3), fAmpLv = clamp(fAmpRaw,3);
+                const mFreqLv = clamp(mFreqRaw,4), fFreqLv = clamp(fFreqRaw,4);
+                const mPhaseLv = clamp(mPhaseRaw,4), fPhaseLv = clamp(fPhaseRaw,4);
 
                 const ampGap = Math.abs(mAmpLv - fAmpLv);
                 const avgAmp = (mAmpLv + fAmpLv) / 2;
-                const speedGap = Math.abs(mSpeedLv - fSpeedLv);
-                const avgSpeed = (mSpeedLv + fSpeedLv) / 2;
+                const freqGap = Math.abs(mFreqLv - fFreqLv);
+                const avgFreq = (mFreqLv + fFreqLv) / 2;
+                const phaseGap = Math.abs(mPhaseLv - fPhaseLv);
+                const avgPhase = (mPhaseLv + fPhaseLv) / 2;
 
                 const getAttach = (a) => {
                     const s = a['애착안정']||0, n = a['애착불안']||0, v = a['애착회피']||0;
@@ -3422,14 +3507,14 @@
                 let summaryLine;
                 const scoreColor = sc >= 75 ? '#059669' : sc >= 55 ? '#2563EB' : '#D97706';
                 if (sc >= 75) {
-                    summaryLine = ampGap <= 2 && speedGap <= 2
-                        ? '파동의 크기도 빠르기도 비슷해서 말 안 해도 통하는 찰떡 궁합이에요'
-                        : ampGap <= 3 ? '에너지가 비슷해서 함께 있으면 자연스럽게 맞는 사이예요'
-                        : '서로 다른 점이 오히려 강점이 되어 시너지를 내는 사이예요';
+                    summaryLine = ampGap <= 2 && freqGap <= 2 && phaseGap <= 2
+                        ? '에너지도, 리듬도, 역할도 비슷해서 말 안 해도 통하는 찰떡 궁합이에요'
+                        : ampGap <= 2 && phaseGap >= 4 ? '에너지는 비슷하고, 리드-팔로우가 자연스럽게 나뉘어 시너지가 나는 사이예요'
+                        : '서로 다른 점이 오히려 강점이 되어 함께 성장하는 사이예요';
                 } else if (sc >= 55) {
-                    summaryLine = ampGap <= 3
-                        ? '에너지는 비슷하고, 다른 부분은 맞춰가면 더 좋아지는 사이예요'
-                        : speedGap <= 3 ? '생활 리듬이 비슷해서 함께 지내기 편한 사이예요'
+                    summaryLine = phaseGap >= 3
+                        ? '리드와 팔로우가 자연스럽게 나뉘어서 함께 있으면 편한 사이예요'
+                        : freqGap <= 2 ? '감정 리듬이 비슷해서 서로를 예측하기 쉬운 사이예요'
                         : '서로 다른 점이 있지만, 알아갈수록 매력이 보이는 사이예요';
                 } else {
                     summaryLine = sameColor
@@ -3437,40 +3522,58 @@
                         : '성격은 다르지만 서로 없는 부분을 채워줄 수 있는 사이예요';
                 }
 
-                // ── ⛰️ 파동의 크기(에너지) 비교 ──
+                // ── ⛰️ 관계 에너지 비교 ──
                 let ampAnalysis;
                 if (ampGap <= 2) {
-                    ampAnalysis = avgAmp >= 5
-                        ? '둘 다 파동의 크기가 커서 에너지가 높아요. 함께 활동하면 더 신나고, 서로에게 활력을 불어넣는 관계예요.'
-                        : avgAmp >= 3
-                        ? '파동의 크기가 비슷한 중간 에너지예요. 무리하지 않으면서도 함께 즐길 수 있는 편안한 조합이에요.'
-                        : '둘 다 파동의 크기가 작아서 조용하고 차분해요. 소수의 깊은 대화를 나누며 편하게 지낼 수 있어요.';
+                    ampAnalysis = avgAmp >= 6
+                        ? '둘 다 관계 에너지가 높아요. 함께 활동하면 더 신나고, 서로에게 활력을 불어넣는 관계예요.'
+                        : avgAmp >= 4
+                        ? '관계 에너지가 비슷한 수준이에요. 무리하지 않으면서도 함께 즐길 수 있는 편안한 조합이에요.'
+                        : '둘 다 관계에서 차분한 편이에요. 소수의 깊은 대화를 나누며 편하게 지낼 수 있어요.';
                 } else if (ampGap <= 4) {
                     ampAnalysis = mAmpLv > fAmpLv
-                        ? '♂쪽의 파동이 더 큰 편이에요. 한 사람이 먼저 움직이고 한 사람이 따라가는 자연스러운 밀당이 생길 수 있어요.'
-                        : '♀쪽의 파동이 더 큰 편이에요. 한 사람이 리드하고 한 사람이 맞춰주는 편안한 역할 분배가 될 수 있어요.';
+                        ? '♂쪽이 관계에서 더 적극적인 편이에요. 한 사람이 먼저 움직이고 한 사람이 받아주는 자연스러운 호흡이에요.'
+                        : '♀쪽이 관계에서 더 적극적인 편이에요. 한 사람이 에너지를 주고 한 사람이 안정감을 주는 조합이에요.';
                 } else {
                     ampAnalysis = mAmpLv > fAmpLv
-                        ? '♂쪽이 훨씬 에너지가 높아요. 활동 범위와 속도 차이가 있으니 서로의 페이스를 존중해주면 좋아요.'
-                        : '♀쪽이 훨씬 에너지가 높아요. 서로 다른 에너지 레벨을 이해하고, 각자의 리듬을 존중해주는 게 중요해요.';
+                        ? '♂쪽이 훨씬 적극적이에요. 서로의 관계 참여 방식을 이해하고 존중해주면 좋아요.'
+                        : '♀쪽이 훨씬 적극적이에요. 서로 다른 에너지 레벨을 이해하고, 각자의 방식을 존중해주는 게 중요해요.';
                 }
 
-                // ── 🎵 파동의 빠르기(안정↔자유) 비교 ──
-                let speedAnalysis;
-                if (speedGap <= 2) {
-                    speedAnalysis = avgSpeed <= 4
-                        ? '둘 다 파동이 느려서 안정적이에요. 계획적이고 꾸준한 생활 리듬이 맞아서 함께 지내기 편해요.'
-                        : avgSpeed <= 6
-                        ? '파동의 빠르기가 비슷한 중간이에요. 계획과 즉흥 사이에서 균형을 잘 맞출 수 있는 조합이에요.'
-                        : '둘 다 파동이 빠르고 자유로워요. 즉흥적이고 유연한 관계를 즐길 수 있지만, 중요한 결정은 함께 잡아가면 좋아요.';
-                } else if (speedGap <= 4) {
-                    speedAnalysis = mSpeedLv < fSpeedLv
-                        ? '♂쪽이 더 안정적이에요. 한 사람이 중심을 잡아주고 한 사람이 변화를 주는 보완적인 관계예요.'
-                        : '♀쪽이 더 안정적이에요. 한 사람이 든든한 기반이 되고 한 사람이 새로움을 더해주는 조합이에요.';
+                // ── 🎵 감정 리듬 비교 ──
+                let freqAnalysis;
+                if (freqGap <= 2) {
+                    freqAnalysis = avgFreq <= 4
+                        ? '둘 다 감정이 안정적이에요. 한결같고 예측 가능한 관계라서 함께 지내기 편해요.'
+                        : avgFreq <= 6
+                        ? '감정 리듬이 비슷한 수준이에요. 서로의 감정 변화를 잘 이해하고 맞춰갈 수 있어요.'
+                        : '둘 다 감정 변화가 풍부해요. 서로의 감정을 잘 알아채지만, 함께 흔들릴 때 서로 잡아주는 연습이 필요해요.';
+                } else if (freqGap <= 4) {
+                    freqAnalysis = mFreqLv < fFreqLv
+                        ? '♂쪽이 더 안정적이에요. 한 사람이 감정의 닻이 되어주고 한 사람이 다채로움을 더하는 보완적인 관계예요.'
+                        : '♀쪽이 더 안정적이에요. 한 사람이 든든한 기반이 되고 한 사람이 감성적 풍요를 더해주는 조합이에요.';
                 } else {
-                    speedAnalysis = mSpeedLv < fSpeedLv
-                        ? '♂쪽이 훨씬 안정적이에요. 생활 방식에 차이가 있으니 서로의 리듬을 이해하는 과정이 필요해요.'
-                        : '♀쪽이 훨씬 안정적이에요. 속도 차이가 있으니 서로 맞춰가려는 노력이 관계를 더 깊게 만들어요.';
+                    freqAnalysis = mFreqLv < fFreqLv
+                        ? '♂쪽이 훨씬 안정적이에요. 감정 표현 방식에 차이가 있으니 서로의 리듬을 이해하는 과정이 필요해요.'
+                        : '♀쪽이 훨씬 안정적이에요. 감정 온도 차이가 있으니 서로 맞춰가려는 노력이 관계를 더 깊게 만들어요.';
+                }
+
+                // ── 🤝 리드/팔로우 비교 (★ 신규) ──
+                let phaseAnalysis;
+                if (phaseGap <= 2) {
+                    phaseAnalysis = avgPhase >= 6
+                        ? '둘 다 주도적이에요. 서로 이끌고 싶은 에너지가 강해서, 역할 조율이 관계의 열쇠예요.'
+                        : avgPhase <= 4
+                        ? '둘 다 상대에게 맞추려 해요. 편안하지만, 가끔은 먼저 나서는 용기도 필요해요.'
+                        : '리드와 팔로우의 균형이 비슷해요. 상황에 따라 자연스럽게 역할이 바뀌는 유연한 사이예요.';
+                } else if (phaseGap <= 4) {
+                    phaseAnalysis = mPhaseLv > fPhaseLv
+                        ? '♂가 먼저 다가가고 ♀가 맞춰주는 자연스러운 호흡이에요. 한 사람이 이끌고 한 사람이 받아주는 편안한 역할 분배예요.'
+                        : '♀가 주도하고 ♂가 맞춰주는 스타일이에요. 서로의 역할이 분명해서 의사결정이 수월해요.';
+                } else {
+                    phaseAnalysis = mPhaseLv > fPhaseLv
+                        ? '♂가 훨씬 주도적이에요. 적극적인 리드가 매력이지만, 상대 의견도 귀 기울이면 더 좋아요.'
+                        : '♀가 훨씬 주도적이에요. 강한 리더십이 매력이지만, 가끔은 ♂에게도 주도권을 나눠주면 관계가 더 깊어져요.';
                 }
 
                 // ── 💛 애착 유형 비교 ──
@@ -3506,16 +3609,19 @@
                     colorAnalysis = `♂의 대표 색상은 <b>${mCM.name}</b>(${mCM.desc}), ♀는 <b>${fCM.name}</b>(${fCM.desc})이에요. ${comboDesc} 서로 없는 부분을 채워줄 수 있는 조합이에요.`;
                 }
 
-                // 전체 조합
+                // 전체 조합 (5축)
                 return `<div style="margin-bottom:12px;"><b style="color:${scoreColor};font-size:16px;">` +
                     `"${summaryLine}"</b></div>` +
                     `<div style="display:flex;flex-direction:column;gap:10px;">` +
                     `<div style="background:rgba(251,191,36,0.08);border-radius:10px;padding:10px 12px;">` +
-                    `<div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:4px;">⛰️ 파동의 크기(에너지) 비교</div>` +
+                    `<div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:4px;">⛰️ 관계 에너지 비교</div>` +
                     `<div style="font-size:13px;color:#1e293b;line-height:1.7;">${ampAnalysis}</div></div>` +
                     `<div style="background:rgba(96,165,250,0.08);border-radius:10px;padding:10px 12px;">` +
-                    `<div style="font-size:12px;font-weight:700;color:#1e40af;margin-bottom:4px;">🎵 파동의 빠르기(안정감) 비교</div>` +
-                    `<div style="font-size:13px;color:#1e293b;line-height:1.7;">${speedAnalysis}</div></div>` +
+                    `<div style="font-size:12px;font-weight:700;color:#1e40af;margin-bottom:4px;">🎵 감정 리듬 비교</div>` +
+                    `<div style="font-size:13px;color:#1e293b;line-height:1.7;">${freqAnalysis}</div></div>` +
+                    `<div style="background:rgba(245,158,11,0.08);border-radius:10px;padding:10px 12px;">` +
+                    `<div style="font-size:12px;font-weight:700;color:#92400e;margin-bottom:4px;">🤝 리드/팔로우 비교</div>` +
+                    `<div style="font-size:13px;color:#1e293b;line-height:1.7;">${phaseAnalysis}</div></div>` +
                     `<div style="background:rgba(168,85,247,0.08);border-radius:10px;padding:10px 12px;">` +
                     `<div style="font-size:12px;font-weight:700;color:#6b21a8;margin-bottom:4px;">💛 애착 유형 비교</div>` +
                     `<div style="font-size:13px;color:#1e293b;line-height:1.7;">${attachAnalysis}</div></div>` +
@@ -3533,40 +3639,38 @@
                 maleDesc: mResult.desc,
                 maleColor: mResult.color,
                 maleEmoji: mResult.emoji,
-                maleAmpPct: mResult.ampPct,
-                maleStabPct: mResult.stabPct,
-                maleAmpText: mResult.ampText,
-                maleStabText: mResult.stabText,
                 maleAmpHint: mResult.ampHint,
-                maleStabHint: mResult.stabHint,
+                maleFreqHint: mResult.freqHint,
+                malePhaseHint: mResult.phaseHint,
                 maleColorHint: mResult.colorHint,
                 maleColorTag: mResult.colorTag,
                 maleQuadTag: mResult.quadTag,
+                malePhaseTag: mResult.phaseTag,
                 maleColorHex: mResult.colorHex,
                 maleColorName: mResult.colorName,
                 maleQuadDotX: mResult.quadDotX,
                 maleQuadDotY: mResult.quadDotY,
                 maleAmpLevel: mResult.ampLevel,
-                maleSpeedLevel: mResult.speedLevel,
+                maleFreqLevel: mResult.freqLevel,
+                malePhaseLevel: mResult.phaseLevel,
                 femaleLabel: fResult.label,
                 femaleDesc: fResult.desc,
                 femaleColor: fResult.color,
                 femaleEmoji: fResult.emoji,
-                femaleAmpPct: fResult.ampPct,
-                femaleStabPct: fResult.stabPct,
-                femaleAmpText: fResult.ampText,
-                femaleStabText: fResult.stabText,
                 femaleAmpHint: fResult.ampHint,
-                femaleStabHint: fResult.stabHint,
+                femaleFreqHint: fResult.freqHint,
+                femalePhaseHint: fResult.phaseHint,
                 femaleColorHint: fResult.colorHint,
                 femaleColorTag: fResult.colorTag,
                 femaleQuadTag: fResult.quadTag,
+                femalePhaseTag: fResult.phaseTag,
                 femaleColorHex: fResult.colorHex,
                 femaleColorName: fResult.colorName,
                 femaleQuadDotX: fResult.quadDotX,
                 femaleQuadDotY: fResult.quadDotY,
                 femaleAmpLevel: fResult.ampLevel,
-                femaleSpeedLevel: fResult.speedLevel,
+                femaleFreqLevel: fResult.freqLevel,
+                femalePhaseLevel: fResult.phaseLevel,
                 combined: describeCombined(score, mAxes, fAxes, mResult.colorKey, fResult.colorKey)
             };
         }
@@ -3681,16 +3785,20 @@
             const cardDescM = document.getElementById('wave-card-desc-m');
             const cardIconM = document.getElementById('wave-card-icon-m');
             const ampGaugeM = document.getElementById('wave-amp-gauge-m');
-            const stabGaugeM = document.getElementById('wave-stab-gauge-m');
             const tagColorM = document.getElementById('wave-tag-color-m');
             const tagQuadM = document.getElementById('wave-tag-quad-m');
             if (cardLabelM) cardLabelM.innerHTML = waveSummary.maleLabel;
             if (cardDescM) cardDescM.innerHTML = waveSummary.maleDesc;
             if (cardIconM && waveSummary.maleColor) cardIconM.style.background = waveSummary.maleColor[0];
             if (ampGaugeM) ampGaugeM.innerHTML = waveSummary.maleAmpHint;
-            if (stabGaugeM) stabGaugeM.innerHTML = waveSummary.maleStabHint;
+            const freqGaugeM = document.getElementById('wave-freq-gauge-m');
+            if (freqGaugeM) freqGaugeM.innerHTML = waveSummary.maleFreqHint;
+            const phaseGaugeM = document.getElementById('wave-phase-gauge-m');
+            if (phaseGaugeM) phaseGaugeM.innerHTML = waveSummary.malePhaseHint;
             if (tagColorM) { tagColorM.textContent = waveSummary.maleColorTag; tagColorM.style.borderColor = waveSummary.maleColorHex; tagColorM.style.color = waveSummary.maleColorHex; }
             if (tagQuadM) tagQuadM.textContent = waveSummary.maleQuadTag;
+            const tagPhaseM = document.getElementById('wave-tag-phase-m');
+            if (tagPhaseM) tagPhaseM.textContent = waveSummary.malePhaseTag;
             // 색상 도트 + 이름 + 힌트
             const colorHintM = document.getElementById('wave-color-hint-m');
             const colorDotM = document.getElementById('wave-color-dot-m');
@@ -3703,16 +3811,20 @@
             const cardDescF = document.getElementById('wave-card-desc-f');
             const cardIconF = document.getElementById('wave-card-icon-f');
             const ampGaugeF = document.getElementById('wave-amp-gauge-f');
-            const stabGaugeF = document.getElementById('wave-stab-gauge-f');
             const tagColorF = document.getElementById('wave-tag-color-f');
             const tagQuadF = document.getElementById('wave-tag-quad-f');
             if (cardLabelF) cardLabelF.innerHTML = waveSummary.femaleLabel;
             if (cardDescF) cardDescF.innerHTML = waveSummary.femaleDesc;
             if (cardIconF && waveSummary.femaleColor) cardIconF.style.background = waveSummary.femaleColor[0];
             if (ampGaugeF) ampGaugeF.innerHTML = waveSummary.femaleAmpHint;
-            if (stabGaugeF) stabGaugeF.innerHTML = waveSummary.femaleStabHint;
+            const freqGaugeF = document.getElementById('wave-freq-gauge-f');
+            if (freqGaugeF) freqGaugeF.innerHTML = waveSummary.femaleFreqHint;
+            const phaseGaugeF = document.getElementById('wave-phase-gauge-f');
+            if (phaseGaugeF) phaseGaugeF.innerHTML = waveSummary.femalePhaseHint;
             if (tagColorF) { tagColorF.textContent = waveSummary.femaleColorTag; tagColorF.style.borderColor = waveSummary.femaleColorHex; tagColorF.style.color = waveSummary.femaleColorHex; }
             if (tagQuadF) tagQuadF.textContent = waveSummary.femaleQuadTag;
+            const tagPhaseF = document.getElementById('wave-tag-phase-f');
+            if (tagPhaseF) tagPhaseF.textContent = waveSummary.femalePhaseTag;
             // 색상 도트 + 이름 + 힌트
             const colorHintF = document.getElementById('wave-color-hint-f');
             const colorDotF = document.getElementById('wave-color-dot-f');
@@ -3733,7 +3845,7 @@
             if (quadCoordM) {
                 quadCoordM.style.left = waveSummary.maleQuadDotX + '%';
                 quadCoordM.style.top = (waveSummary.maleQuadDotY - 7) + '%';
-                quadCoordM.textContent = `(${waveSummary.maleSpeedLevel},${waveSummary.maleAmpLevel})`;
+                quadCoordM.textContent = `(${waveSummary.maleFreqLevel},${waveSummary.maleAmpLevel})`;
             }
             if (quadDotF) {
                 quadDotF.style.left = waveSummary.femaleQuadDotX + '%';
@@ -3743,7 +3855,7 @@
             if (quadCoordF) {
                 quadCoordF.style.left = waveSummary.femaleQuadDotX + '%';
                 quadCoordF.style.top = (waveSummary.femaleQuadDotY + 5) + '%';
-                quadCoordF.textContent = `(${waveSummary.femaleSpeedLevel},${waveSummary.femaleAmpLevel})`;
+                quadCoordF.textContent = `(${waveSummary.femaleFreqLevel},${waveSummary.femaleAmpLevel})`;
             }
             // 궁합 카드
             const cardCombined = document.getElementById('wave-card-combined-text');
