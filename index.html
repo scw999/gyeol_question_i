@@ -2007,7 +2007,7 @@
             '#우호성': '우호성', '#정서적공감': '우호성', '#관계지향': '우호성', '#통합': '우호성', '#가족확장': '우호성', '#전통적': '우호성', '#가정': '우호성', '#가정적': '우호성', '#요리': '우호성',
             '#정서안정': '정서안정', '#낮은신경증': '정서안정', '#내향성': '정서안정', '#안정추구': '정서안정', '#낮은친밀감': '정서안정', '#유연': '정서안정', '#위험회피': '정서안정', '#자연스러움': '정서안정', '#삶의질': '정서안정', '#안정': '정서안정', '#자기관리': '정서안정', '#무던함': '정서안정',
             '#안정애착': '애착안정', '#애착안정': '애착안정', '#존재적공감': '애착안정', '#중간친밀감': '애착안정',
-            '#불안애착': '애착불안', '#정서불안': '애착불안', '#신경증': '애착불안', '#접촉위안': '애착불안',
+            '#애착불안': '애착불안', '#불안애착': '애착불안', '#정서불안': '애착불안', '#신경증': '애착불안', '#접촉위안': '애착불안',
             '#애착회피': '애착회피'
         };
 
@@ -2268,7 +2268,7 @@
                             const axis = tagToAxis[me.dataset.tag] || '우호성';
                             const axes = gender === 'male' ? maleAxes : femaleAxes;
                             if (axes[axis] !== undefined) axes[axis]++;
-                            if (['#불안애착', '#정서불안', '#신경증'].includes(me.dataset.tag)) axes['애착불안']++;
+                            if (['#애착불안', '#불안애착', '#정서불안', '#신경증'].includes(me.dataset.tag)) axes['애착불안']++;
                             if (['#애착회피', '#독립적'].includes(me.dataset.tag)) axes['애착회피']++;
                             if (['#안정애착', '#애착안정'].includes(me.dataset.tag)) axes['애착안정']++;
                         }
@@ -2519,11 +2519,22 @@
             const mDom = getDom(maleAxes);
             const fDom = getDom(femaleAxes);
             
-            const isSimilar = mDom === fDom;
-            const totalEnergy = (maleAxes['외향성'] || 0) + (femaleAxes['외향성'] || 0) + (maleAxes['개방성'] || 0) + (femaleAxes['개방성'] || 0);
-            const totalStability = (maleAxes['성실성'] || 0) + (femaleAxes['성실성'] || 0) + (maleAxes['정서안정'] || 0) + (femaleAxes['정서안정'] || 0);
+            // ── 3축 레벨 계산 (파동 공식과 동일) ──
+            const cl = (v, o) => Math.max(1, Math.min(10, Math.round(v + o) || 1));
+            const calcAmp = (ax) => cl((ax['외향성']||0)*1.2 + (ax['개방성']||0)*0.6 + (ax['애착안정']||0)*0.4 - (ax['애착회피']||0)*0.8, 3);
+            const calcFreq = (ax) => cl((ax['애착불안']||0)*1.0 + (ax['개방성']||0)*0.4 - (ax['정서안정']||0)*0.8 - (ax['성실성']||0)*0.3, 4);
+            const calcPhase = (ax) => cl((ax['외향성']||0)*0.5 + (ax['애착안정']||0)*0.3 - (ax['우호성']||0)*0.6 - (ax['애착회피']||0)*0.5, 4);
+            const mAmp = calcAmp(maleAxes), fAmp = calcAmp(femaleAxes);
+            const mFreq = calcFreq(maleAxes), fFreq = calcFreq(femaleAxes);
+            const mPhase = calcPhase(maleAxes), fPhase = calcPhase(femaleAxes);
+            const ampGap = Math.abs(mAmp - fAmp);
+            const freqGap = Math.abs(mFreq - fFreq);
+            const phaseGap = Math.abs(mPhase - fPhase);
+            const avgAmp = (mAmp + fAmp) / 2;
+            const avgFreq = (mFreq + fFreq) / 2;
             
-            if (isSimilar) {
+            // ── 우선순위 1: 유사성 매칭 (같은 대표 성향) ──
+            if (mDom === fDom) {
                 if (mDom === '외향성' || mDom === '개방성') {
                     return { title: "🔥 열정의 스파크", subtitle: "PASSIONATE SOULS", icon: "🎆", tags: ["#에너지폭발", "#환상의콤비", "#지루할틈없음"], desc: "함께하면 세상이 두 배로 즐거운 열정 커플", color: "#F97316", borderColor: "#FED7AA" };
                 }
@@ -2536,6 +2547,7 @@
                 return { title: "🪞 영혼의 데칼코마니", subtitle: "MIRROR IMAGE", icon: "👯", tags: ["#도플갱어", "#소울메이트", "#이심전심"], desc: "말하지 않아도 통하는 거울 같은 사이", color: "#6366F1", borderColor: "#C7D2FE" };
             }
 
+            // ── 우선순위 2: 상호보완 매칭 (대립 성향) ──
             if ((mDom === '개방성' && fDom === '성실성') || (mDom === '성실성' && fDom === '개방성')) {
                 return { title: "🔭 비전과 현실", subtitle: "DREAM & REALITY", icon: "🚀", tags: ["#상호보완", "#최강팀워크", "#성장"], desc: "꿈을 꾸고 현실로 만드는 완벽한 파트너십", color: "#3B82F6", borderColor: "#BFDBFE" };
             }
@@ -2543,16 +2555,26 @@
                 return { title: "⚓️ 정적인 닻과 돛", subtitle: "ANCHOR & SAIL", icon: "⛵️", tags: ["#균형", "#이끌어줌", "#받쳐줌"], desc: "나아갈 힘과 머무를 곳이 되어주는 조화", color: "#0EA5E9", borderColor: "#BAE6FD" };
             }
             
-            if (totalEnergy > 14) {
-                return { title: "🎢 다이내믹 듀오", subtitle: "DYNAMIC ADVENTURE", icon: "🎡", tags: ["#모험", "#스릴", "#활력"], desc: "매일매일이 새로운 시트콤 같은 커플", color: "#EF4444", borderColor: "#FECACA" };
+            // ── 우선순위 3: 3축 기반 매칭 (v3.2 변경) ──
+            // 3-1. 다이내믹 듀오: 둘 다 관계 에너지가 높음
+            if (avgAmp >= 7) {
+                return { title: "🎢 다이내믹 듀오", subtitle: "DYNAMIC ADVENTURE", icon: "🎡", tags: ["#모험", "#스릴", "#활력"], desc: "함께하면 에너지가 두 배, 매일이 새로운 커플", color: "#EF4444", borderColor: "#FECACA" };
+            }
+            // 3-2. 견고한 성벽: 둘 다 감정 리듬이 안정적
+            if (avgFreq <= 3) {
+                return { title: "🏰 견고한 성벽", subtitle: "SOLID CASTLE", icon: "🛡️", tags: ["#철벽방어", "#미래지향", "#계획적"], desc: "흔들림 없는 리듬으로 미래를 쌓아가는 전략가들", color: "#4B5563", borderColor: "#E5E7EB" };
+            }
+            // 3-3. 이끄는 자와 받쳐주는 자: 리드-팔로우가 자연스럽게 나뉨
+            if (phaseGap >= 4) {
+                return { title: "🧲 이끄는 자와 받쳐주는 자", subtitle: "LEAD & SUPPORT", icon: "🤝", tags: ["#역할분담", "#시너지", "#자연스러움"], desc: "한 사람이 이끌고 한 사람이 받쳐주는 완벽한 호흡", color: "#7C3AED", borderColor: "#DDD6FE" };
             }
             
-            if (totalStability > 14) {
-                return { title: "🏰 견고한 성벽", subtitle: "SOLID CASTLE", icon: "🛡️", tags: ["#철벽방어", "#미래지향", "#계획적"], desc: "흔들림 없이 미래를 쌓아가는 전략가들", color: "#4B5563", borderColor: "#E5E7EB" };
+            // ── 우선순위 4: 3축 전체 조화 (v3.2 변경 — score 제거) ──
+            if (ampGap <= 2 && freqGap <= 2 && phaseGap <= 2) {
+                return { title: "💎 빛나는 원석", subtitle: "SHINING GEM", icon: "💍", tags: ["#삼박자", "#조화", "#찰떡궁합"], desc: "에너지, 리듬, 역할 모두 맞아 빛나는 만남", color: "#EC4899", borderColor: "#FBCFE8" };
             }
-
-            if (score >= 80) return { title: "💎 빛나는 원석", subtitle: "SHINING GEM", icon: "💍", tags: ["#가능성", "#발전", "#소중함"], desc: "갈고 닦을수록 빛이 나는 보석 같은 만남", color: "#EC4899", borderColor: "#FBCFE8" };
             
+            // ── Fallback ──
             return { title: "🌈 다채로운 프리즘", subtitle: "COLORFUL PRISM", icon: "🎨", tags: ["#개성", "#존중", "#새로움"], desc: "서로 다른 색이 만나 아름다운 무지개를 만듭니다", color: "#8B5CF6", borderColor: "#DDD6FE" };
         }
         function getDominantColor(axes) {
