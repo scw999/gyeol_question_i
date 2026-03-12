@@ -2252,9 +2252,6 @@
                 const themeMatches = { money: 0, love: 0, talk: 0, life: 0, family: 0 };
                 const maleAxes = { '개방성':0, '성실성':0, '외향성':0, '우호성':0, '정서안정':0, '애착안정':0, '애착불안':0, '애착회피':0 };
                 const femaleAxes = { '개방성':0, '성실성':0, '외향성':0, '우호성':0, '정서안정':0, '애착안정':0, '애착불안':0, '애착회피':0 };
-                // 이중카운팅 없는 원본 점수 (대표성향 판별용)
-                const maleAxesRaw = { '개방성':0, '성실성':0, '외향성':0, '우호성':0, '정서안정':0, '애착안정':0, '애착불안':0, '애착회피':0 };
-                const femaleAxesRaw = { '개방성':0, '성실성':0, '외향성':0, '우호성':0, '정서안정':0, '애착안정':0, '애착불안':0, '애착회피':0 };
                 const attachCounts = { male: { secure:0, anxious:0, avoid:0 }, female: { secure:0, anxious:0, avoid:0 } };
                 let catScores = { life: { total: 0, max: 0 }, love: { total: 0, max: 0 }, value: { total: 0, max: 0 } };
 
@@ -2270,11 +2267,7 @@
                         if (me) {
                             const axis = tagToAxis[me.dataset.tag] || '우호성';
                             const axes = gender === 'male' ? maleAxes : femaleAxes;
-                            const axesRaw = gender === 'male' ? maleAxesRaw : femaleAxesRaw;
-                            if (axes[axis] !== undefined) { axes[axis]++; axesRaw[axis]++; }
-                            if (['#애착불안', '#불안애착', '#정서불안', '#신경증'].includes(me.dataset.tag)) axes['애착불안']++;
-                            if (['#애착회피', '#독립적'].includes(me.dataset.tag)) axes['애착회피']++;
-                            if (['#안정애착', '#애착안정'].includes(me.dataset.tag)) axes['애착안정']++;
+                            if (axes[axis] !== undefined) { axes[axis]++; }
                         }
                     });
 
@@ -2512,21 +2505,21 @@
                     criticalPenalty, criticalFlags, questionDetails, moduleScores
                 };
 
-                showResults({ score, catScores: {life: lifeScore, love: loveScore, value: valueScore}, details, themeMatches, maleAxes, femaleAxes, maleAxesRaw, femaleAxesRaw, attachCounts, v2Data });
+                showResults({ score, catScores: {life: lifeScore, love: loveScore, value: valueScore}, details, themeMatches, maleAxes, femaleAxes, attachCounts, v2Data });
 
             });
         }
 
-        function getMatchType(maleAxesRaw, femaleAxesRaw, maleAxes, femaleAxes) {
-            // ── 정규화 대표성향 (rawAxes 기반, SLOT_COUNT_RAW 사용) ──
-            const mDom = getDominantTraitRaw(maleAxesRaw);
-            const fDom = getDominantTraitRaw(femaleAxesRaw);
+        function getMatchType(maleAxes, femaleAxes) {
+            // ── v3.4: 이중카운팅 제거, 단일 axes 사용 ──
+            const mDom = getDominantTrait(maleAxes);
+            const fDom = getDominantTrait(femaleAxes);
             
-            // ── 3축 레벨 계산 (파동 공식과 동일, full axes 사용) ──
+            // ── 3축 레벨 계산 (v3.4 재캘리브레이션: offset 0/6/5.5, 위상 가중치 강화) ──
             const cl = (v, o) => Math.max(1, Math.min(10, Math.round(v + o) || 1));
-            const calcAmp = (ax) => cl((ax['외향성']||0)*1.2 + (ax['개방성']||0)*0.6 + (ax['애착안정']||0)*0.4 - (ax['애착회피']||0)*0.8, 3);
-            const calcFreq = (ax) => cl((ax['애착불안']||0)*1.0 + (ax['개방성']||0)*0.4 - (ax['정서안정']||0)*0.8 - (ax['성실성']||0)*0.3, 4);
-            const calcPhase = (ax) => cl((ax['외향성']||0)*0.5 + (ax['애착안정']||0)*0.3 - (ax['우호성']||0)*0.6 - (ax['애착회피']||0)*0.5, 4);
+            const calcAmp = (ax) => cl((ax['외향성']||0)*1.2 + (ax['개방성']||0)*0.6 + (ax['애착안정']||0)*0.4 - (ax['애착회피']||0)*0.8, 0);
+            const calcFreq = (ax) => cl((ax['애착불안']||0)*1.0 + (ax['개방성']||0)*0.4 - (ax['정서안정']||0)*0.8 - (ax['성실성']||0)*0.3, 6);
+            const calcPhase = (ax) => cl((ax['외향성']||0)*0.8 + (ax['애착안정']||0)*0.5 - (ax['우호성']||0)*0.9 - (ax['애착회피']||0)*0.7, 5.5);
             const mAmp = calcAmp(maleAxes), fAmp = calcAmp(femaleAxes);
             const mFreq = calcFreq(maleAxes), fFreq = calcFreq(femaleAxes);
             const mPhase = calcPhase(maleAxes), fPhase = calcPhase(femaleAxes);
@@ -2536,7 +2529,7 @@
             const avgAmp = (mAmp + fAmp) / 2;
             const avgFreq = (mFreq + fFreq) / 2;
             
-            // ── 우선순위 1: 유사성 (같은 대표 성향) — 희귀한 것 먼저 ──
+            // ── 우선순위 1: 유사성 — 희귀한 것 먼저 ──
             if (mDom === fDom) {
                 if (mDom === '애착불안' || mDom === '애착회피') {
                     return { title: "🪞 영혼의 데칼코마니", subtitle: "MIRROR IMAGE", icon: "👯", tags: ["#도플갱어", "#소울메이트", "#이심전심"], desc: "말하지 않아도 통하는 거울 같은 사이", color: "#6366F1", borderColor: "#C7D2FE" };
@@ -2552,7 +2545,7 @@
                 }
             }
 
-            // ── 우선순위 2: 상호보완 (대립 성향) — 희귀한 것 먼저 ──
+            // ── 우선순위 2: 상호보완 — 희귀한 것 먼저 ──
             if ((mDom === '외향성' && ['정서안정','성실성'].includes(fDom)) || (['정서안정','성실성'].includes(mDom) && fDom === '외향성')) {
                 return { title: "⚓️ 정적인 닻과 돛", subtitle: "ANCHOR & SAIL", icon: "⛵️", tags: ["#균형", "#이끌어줌", "#받쳐줌"], desc: "나아갈 힘과 머무를 곳이 되어주는 조화", color: "#0EA5E9", borderColor: "#BAE6FD" };
             }
@@ -2560,14 +2553,14 @@
                 return { title: "🔭 비전과 현실", subtitle: "DREAM & REALITY", icon: "🚀", tags: ["#상호보완", "#최강팀워크", "#성장"], desc: "꿈을 꾸고 현실로 만드는 완벽한 파트너십", color: "#3B82F6", borderColor: "#BFDBFE" };
             }
             
-            // ── 우선순위 3: 3축 기반 — 희귀한 것 먼저 (v3.2 임계값 조정) ──
-            if (phaseGap >= 5) {
+            // ── 우선순위 3: 3축 기반 — 희귀한 것 먼저 (v3.4 임계값) ──
+            if (phaseGap >= 4) {
                 return { title: "🧲 이끄는 자와 받쳐주는 자", subtitle: "LEAD & SUPPORT", icon: "🤝", tags: ["#역할분담", "#시너지", "#자연스러움"], desc: "한 사람이 이끌고 한 사람이 받쳐주는 완벽한 호흡", color: "#7C3AED", borderColor: "#DDD6FE" };
             }
-            if (avgFreq <= 2) {
+            if (avgFreq <= 3) {
                 return { title: "🏰 견고한 성벽", subtitle: "SOLID CASTLE", icon: "🛡️", tags: ["#철벽방어", "#미래지향", "#계획적"], desc: "흔들림 없는 리듬으로 미래를 쌓아가는 전략가들", color: "#4B5563", borderColor: "#E5E7EB" };
             }
-            if (avgAmp >= 9) {
+            if (avgAmp >= 8) {
                 return { title: "🎢 다이내믹 듀오", subtitle: "DYNAMIC ADVENTURE", icon: "🎡", tags: ["#모험", "#스릴", "#활력"], desc: "함께하면 에너지가 두 배, 매일이 새로운 커플", color: "#EF4444", borderColor: "#FECACA" };
             }
             
@@ -2579,18 +2572,15 @@
             // ── Fallback ──
             return { title: "🌈 다채로운 프리즘", subtitle: "COLORFUL PRISM", icon: "🎨", tags: ["#개성", "#존중", "#새로움"], desc: "서로 다른 색이 만나 아름다운 무지개를 만듭니다", color: "#8B5CF6", borderColor: "#DDD6FE" };
         }
-        // 축별 슬롯 수 — 정규화용 (v3.2)
-        // RAW: 이중카운팅 없는 원본용 (getMatchType의 rawAxes 정규화)
-        // FULL: 이중카운팅 포함된 axes용 (getDominantColor, describePersonal 등)
-        const SLOT_COUNT_RAW = { '개방성':12, '성실성':18, '외향성':10, '우호성':10, '정서안정':9, '애착안정':13, '애착불안':6, '애착회피':6 };
-        const SLOT_COUNT_FULL = { '개방성':12, '성실성':18, '외향성':10, '우호성':10, '정서안정':9, '애착안정':26, '애착불안':12, '애착회피':13 };
+        // 축별 슬롯 수 — 정규화용 (v3.4: 이중카운팅 제거, 단일 SLOT_COUNT)
+        const SLOT_COUNT = { '개방성':12, '성실성':18, '외향성':10, '우호성':10, '정서안정':9, '애착안정':13, '애착불안':6, '애착회피':6 };
 
         function getDominantColor(axes) {
             let maxNorm = -1;
             let domTrait = '우호성'; 
             const axesKeys = ['개방성', '성실성', '외향성', '우호성', '정서안정', '애착안정', '애착불안', '애착회피'];
             for (const trait of axesKeys) {
-                const norm = (axes[trait] || 0) / (SLOT_COUNT_FULL[trait] || 1);
+                const norm = (axes[trait] || 0) / (SLOT_COUNT[trait] || 1);
                 if (norm > maxNorm) {
                     maxNorm = norm;
                     domTrait = trait;
@@ -2601,15 +2591,7 @@
         function getDominantTrait(axes) {
             let maxNorm = -1, dom = '우호성';
             for (const [trait, score] of Object.entries(axes)) {
-                const norm = score / (SLOT_COUNT_FULL[trait] || 1);
-                if (norm > maxNorm) { maxNorm = norm; dom = trait; }
-            }
-            return dom;
-        }
-        function getDominantTraitRaw(rawAxes) {
-            let maxNorm = -1, dom = '우호성';
-            for (const [trait, score] of Object.entries(rawAxes)) {
-                const norm = score / (SLOT_COUNT_RAW[trait] || 1);
+                const norm = score / (SLOT_COUNT[trait] || 1);
                 if (norm > maxNorm) { maxNorm = norm; dom = trait; }
             }
             return dom;
@@ -2636,22 +2618,22 @@
             // ── 새 3축 공식 (v3.0) ──
             const calcAmplitude = (axes) => {
                 const raw = (axes['외향성']||0)*1.2 + (axes['개방성']||0)*0.6 + (axes['애착안정']||0)*0.4 - (axes['애착회피']||0)*0.8;
-                const level = Math.max(1, Math.min(10, Math.round(raw + 3)));
+                const level = Math.max(1, Math.min(10, Math.round(raw + 0)));
                 return 8 + (level - 1) / 9 * (maxAmplitude - 8);
             };
             const ampM = calcAmplitude(maleAxes);
             const ampF = calcAmplitude(femaleAxes);
             const calcFrequency = (axes) => {
                 const raw = (axes['애착불안']||0)*1.0 + (axes['개방성']||0)*0.4 - (axes['정서안정']||0)*0.8 - (axes['성실성']||0)*0.3;
-                const level = Math.max(1, Math.min(10, Math.round(raw + 4)));
+                const level = Math.max(1, Math.min(10, Math.round(raw + 6)));
                 return 0.008 + (level - 1) / 9 * 0.027;
             };
             const freqM = calcFrequency(maleAxes);
             const freqF = calcFrequency(femaleAxes);
-            // 위상: 개인 성향 기반 (리드/팔로우)
+            // 위상: 개인 성향 기반 (리드/팔로우) — v3.4 가중치 강화
             const calcPhase = (axes) => {
-                const raw = (axes['외향성']||0)*0.5 + (axes['애착안정']||0)*0.3 - (axes['우호성']||0)*0.6 - (axes['애착회피']||0)*0.5;
-                return Math.max(1, Math.min(10, Math.round(raw + 4)));
+                const raw = (axes['외향성']||0)*0.8 + (axes['애착안정']||0)*0.5 - (axes['우호성']||0)*0.9 - (axes['애착회피']||0)*0.7;
+                return Math.max(1, Math.min(10, Math.round(raw + 5.5)));
             };
             const mPhaseLv = calcPhase(maleAxes);
             const fPhaseLv = calcPhase(femaleAxes);
@@ -3158,25 +3140,25 @@
             function describePersonal(axes) {
                 // 정규화 정렬: 슬롯 수로 나눠 공정하게 top1/top2 결정 (v3.2)
                 const all = [
-                    { k:'외향성', v: (axes['외향성']||0) / (SLOT_COUNT_FULL['외향성']||1) },
-                    { k:'개방성', v: (axes['개방성']||0) / (SLOT_COUNT_FULL['개방성']||1) },
-                    { k:'성실성', v: (axes['성실성']||0) / (SLOT_COUNT_FULL['성실성']||1) },
-                    { k:'우호성', v: (axes['우호성']||0) / (SLOT_COUNT_FULL['우호성']||1) },
-                    { k:'정서안정', v: (axes['정서안정']||0) / (SLOT_COUNT_FULL['정서안정']||1) },
-                    { k:'애착안정', v: (axes['애착안정']||0) / (SLOT_COUNT_FULL['애착안정']||1) },
-                    { k:'애착불안', v: (axes['애착불안']||0) / (SLOT_COUNT_FULL['애착불안']||1) },
-                    { k:'애착회피', v: (axes['애착회피']||0) / (SLOT_COUNT_FULL['애착회피']||1) }
+                    { k:'외향성', v: (axes['외향성']||0) / (SLOT_COUNT['외향성']||1) },
+                    { k:'개방성', v: (axes['개방성']||0) / (SLOT_COUNT['개방성']||1) },
+                    { k:'성실성', v: (axes['성실성']||0) / (SLOT_COUNT['성실성']||1) },
+                    { k:'우호성', v: (axes['우호성']||0) / (SLOT_COUNT['우호성']||1) },
+                    { k:'정서안정', v: (axes['정서안정']||0) / (SLOT_COUNT['정서안정']||1) },
+                    { k:'애착안정', v: (axes['애착안정']||0) / (SLOT_COUNT['애착안정']||1) },
+                    { k:'애착불안', v: (axes['애착불안']||0) / (SLOT_COUNT['애착불안']||1) },
+                    { k:'애착회피', v: (axes['애착회피']||0) / (SLOT_COUNT['애착회피']||1) }
                 ].sort((a,b) => b.v - a.v);
                 const top1 = all[0].k, top2 = all[1].k;
 
                 const amp = (axes['외향성']||0)*1.2 + (axes['개방성']||0)*0.6 + (axes['애착안정']||0)*0.4 - (axes['애착회피']||0)*0.8;
                 const freqRaw = (axes['애착불안']||0)*1.0 + (axes['개방성']||0)*0.4 - (axes['정서안정']||0)*0.8 - (axes['성실성']||0)*0.3;
-                const phaseRaw = (axes['외향성']||0)*0.5 + (axes['애착안정']||0)*0.3 - (axes['우호성']||0)*0.6 - (axes['애착회피']||0)*0.5;
+                const phaseRaw = (axes['외향성']||0)*0.8 + (axes['애착안정']||0)*0.5 - (axes['우호성']||0)*0.9 - (axes['애착회피']||0)*0.7;
 
-                // ── 10분할 레벨 ──
-                const ampLevel = Math.max(1, Math.min(10, Math.round(amp + 3) || 1));
-                const freqLevel = Math.max(1, Math.min(10, Math.round(freqRaw + 4) || 1));
-                const phaseLevel = Math.max(1, Math.min(10, Math.round(phaseRaw + 4) || 1));
+                // ── 10분할 레벨 (v3.4 offset: amp=0, freq=6, phase=5.5) ──
+                const ampLevel = Math.max(1, Math.min(10, Math.round(amp + 0) || 1));
+                const freqLevel = Math.max(1, Math.min(10, Math.round(freqRaw + 6) || 1));
+                const phaseLevel = Math.max(1, Math.min(10, Math.round(phaseRaw + 5.5) || 1));
 
                 // dot 위치용 연속값 (레벨 기반)
                 const ampPct = ((ampLevel - 1) / 9) * 100;
@@ -3527,12 +3509,12 @@
                 const fAmpRaw = (fA['외향성']||0)*1.2 + (fA['개방성']||0)*0.6 + (fA['애착안정']||0)*0.4 - (fA['애착회피']||0)*0.8;
                 const mFreqRaw = (mA['애착불안']||0)*1.0 + (mA['개방성']||0)*0.4 - (mA['정서안정']||0)*0.8 - (mA['성실성']||0)*0.3;
                 const fFreqRaw = (fA['애착불안']||0)*1.0 + (fA['개방성']||0)*0.4 - (fA['정서안정']||0)*0.8 - (fA['성실성']||0)*0.3;
-                const mPhaseRaw = (mA['외향성']||0)*0.5 + (mA['애착안정']||0)*0.3 - (mA['우호성']||0)*0.6 - (mA['애착회피']||0)*0.5;
-                const fPhaseRaw = (fA['외향성']||0)*0.5 + (fA['애착안정']||0)*0.3 - (fA['우호성']||0)*0.6 - (fA['애착회피']||0)*0.5;
+                const mPhaseRaw = (mA['외향성']||0)*0.8 + (mA['애착안정']||0)*0.5 - (mA['우호성']||0)*0.9 - (mA['애착회피']||0)*0.7;
+                const fPhaseRaw = (fA['외향성']||0)*0.8 + (fA['애착안정']||0)*0.5 - (fA['우호성']||0)*0.9 - (fA['애착회피']||0)*0.7;
                 const clamp = (v,o) => Math.max(1, Math.min(10, Math.round(v + o) || 1));
-                const mAmpLv = clamp(mAmpRaw,3), fAmpLv = clamp(fAmpRaw,3);
-                const mFreqLv = clamp(mFreqRaw,4), fFreqLv = clamp(fFreqRaw,4);
-                const mPhaseLv = clamp(mPhaseRaw,4), fPhaseLv = clamp(fPhaseRaw,4);
+                const mAmpLv = clamp(mAmpRaw,0), fAmpLv = clamp(fAmpRaw,0);
+                const mFreqLv = clamp(mFreqRaw,6), fFreqLv = clamp(fFreqRaw,6);
+                const mPhaseLv = clamp(mPhaseRaw,5.5), fPhaseLv = clamp(fPhaseRaw,5.5);
 
                 const ampGap = Math.abs(mAmpLv - fAmpLv);
                 const avgAmp = (mAmpLv + fAmpLv) / 2;
@@ -3782,7 +3764,7 @@
             document.getElementById('results').classList.remove('hidden');
             document.getElementById('retry-container').classList.remove('hidden');
             document.querySelector('.fixed-bottom-bar .flex.gap-3').classList.add('hidden'); 
-            const matchType = getMatchType(data.maleAxesRaw, data.femaleAxesRaw, data.maleAxes, data.femaleAxes);
+            const matchType = getMatchType(data.maleAxes, data.femaleAxes);
             const matchContainer = document.getElementById('match-type-card-container');
             if (matchContainer) {
                 matchContainer.innerHTML = `
