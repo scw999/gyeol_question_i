@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>결하다 - 삼중뇌 & Big 5 심층 궁합</title>
+    <title>결하다 - 삼중뇌 & Big 5 심층 궁합 (v4.0)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -2511,11 +2511,15 @@
         }
 
         function getMatchType(maleAxes, femaleAxes) {
-            // ── v3.4: 이중카운팅 제거, 단일 axes 사용 ──
+            // ── v4.0: 28개 매칭 타입 (7단계 우선순위 순차 평가) ──
             const mDom = getDominantTrait(maleAxes);
             const fDom = getDominantTrait(femaleAxes);
             
-            // ── 3축 레벨 계산 (v3.4 재캘리브레이션: offset 0/6/5.5, 위상 가중치 강화) ──
+            // 2순위 성향 계산
+            const getTop2 = (ax) => { const s=Object.entries(ax).map(([k,v])=>({k,z:(v-AXIS_MEAN[k])/AXIS_STD[k]})).sort((a,b)=>b.z-a.z); return s[1].k; };
+            const mT2 = getTop2(maleAxes), fT2 = getTop2(femaleAxes);
+            
+            // 3축 계산
             const cl = (v, o) => Math.max(1, Math.min(10, Math.round(v + o) || 1));
             const calcAmp = (ax) => cl((ax['외향성']||0)*1.2 + (ax['개방성']||0)*0.6 + (ax['애착안정']||0)*0.4 - (ax['애착회피']||0)*0.8, 0);
             const calcFreq = (ax) => cl((ax['애착불안']||0)*1.0 + (ax['개방성']||0)*0.4 - (ax['정서안정']||0)*0.8 - (ax['성실성']||0)*0.3, 6);
@@ -2523,76 +2527,79 @@
             const mAmp = calcAmp(maleAxes), fAmp = calcAmp(femaleAxes);
             const mFreq = calcFreq(maleAxes), fFreq = calcFreq(femaleAxes);
             const mPhase = calcPhase(maleAxes), fPhase = calcPhase(femaleAxes);
-            const ampGap = Math.abs(mAmp - fAmp);
-            const freqGap = Math.abs(mFreq - fFreq);
-            const phaseGap = Math.abs(mPhase - fPhase);
-            const avgAmp = (mAmp + fAmp) / 2;
-            const avgFreq = (mFreq + fFreq) / 2;
+            const ampGap = Math.abs(mAmp - fAmp), freqGap = Math.abs(mFreq - fFreq), phaseGap = Math.abs(mPhase - fPhase);
+            const avgAmp = (mAmp + fAmp) / 2, avgFreq = (mFreq + fFreq) / 2;
             
-            // ── 우선순위 1: 유사성 — 희귀한 것 먼저 ──
+            // 애착 유형
+            const getAttach = (ax) => { const s=ax['애착안정']||0,n=ax['애착불안']||0,v=ax['애착회피']||0; if(s>=n&&s>=v)return'secure'; return n>=v?'anxious':'avoidant'; };
+            const atCombo = [getAttach(maleAxes), getAttach(femaleAxes)].sort().join('-');
+            
+            // ── P1: 유사성 (4개) ──
             if (mDom === fDom) {
-                if (mDom === '애착불안' || mDom === '애착회피') {
-                    return { title: "🪞 영혼의 데칼코마니", subtitle: "MIRROR IMAGE", icon: "👯", tags: ["#도플갱어", "#소울메이트", "#이심전심"], desc: "말하지 않아도 통하는 거울 같은 사이", color: "#6366F1", borderColor: "#C7D2FE" };
-                }
-                if (mDom === '외향성' || mDom === '정서안정') {
-                    return { title: "🔥 열정의 스파크", subtitle: "PASSIONATE SOULS", icon: "🎆", tags: ["#에너지폭발", "#환상의콤비", "#지루할틈없음"], desc: "함께하면 세상이 두 배로 즐거운 열정 커플", color: "#F97316", borderColor: "#FED7AA" };
-                }
-                if (mDom === '우호성' || mDom === '애착안정') {
-                    return { title: "🧸 포근한 솜이불", subtitle: "WARM EMBRACE", icon: "🧶", tags: ["#힐링", "#배려왕", "#따뜻함"], desc: "바라만 봐도 마음이 놓이는 치유의 관계", color: "#EAB308", borderColor: "#FDE047" };
-                }
-                if (mDom === '성실성' || mDom === '개방성') {
-                    return { title: "🌳 뿌리 깊은 나무", subtitle: "DEEP ROOTS", icon: "🏞️", tags: ["#안정감", "#신뢰", "#평온함"], desc: "서로에게 가장 든든한 안식처가 되어주는 관계", color: "#059669", borderColor: "#A7F3D0" };
-                }
+                if (mDom === '애착불안' || mDom === '애착회피') return {"title":"🪞 영혼의 데칼코마니","sub":"MIRROR IMAGE","icon":"👯","tags":["#도플갱어","#소울메이트","#이심전심"],"desc":"말하지 않아도 통하는 거울 같은 사이","color":"#6366F1","borderColor":"#C7D2FE"};
+                if (mDom === '외향성' || mDom === '정서안정') return {"title":"🔥 열정의 스파크","sub":"PASSIONATE SOULS","icon":"🎆","tags":["#에너지폭발","#환상의콤비","#지루할틈없음"],"desc":"함께하면 세상이 두 배로 즐거운 열정 커플","color":"#F97316","borderColor":"#FED7AA"};
+                if (mDom === '우호성' || mDom === '애착안정') return {"title":"🧸 포근한 솜이불","sub":"WARM EMBRACE","icon":"🧶","tags":["#힐링","#배려왕","#따뜻함"],"desc":"바라만 봐도 마음이 놓이는 치유의 관계","color":"#EAB308","borderColor":"#FDE047"};
+                if (mDom === '성실성' || mDom === '개방성') return {"title":"🌳 뿌리 깊은 나무","sub":"DEEP ROOTS","icon":"🏞️","tags":["#안정감","#신뢰","#평온함"],"desc":"서로에게 가장 든든한 안식처가 되어주는 관계","color":"#059669","borderColor":"#A7F3D0"};
             }
-
-            // ── 우선순위 2: 상호보완 — 희귀한 것 먼저 ──
-            if ((mDom === '외향성' && ['정서안정','성실성'].includes(fDom)) || (['정서안정','성실성'].includes(mDom) && fDom === '외향성')) {
-                return { title: "⚓️ 정적인 닻과 돛", subtitle: "ANCHOR & SAIL", icon: "⛵️", tags: ["#균형", "#이끌어줌", "#받쳐줌"], desc: "나아갈 힘과 머무를 곳이 되어주는 조화", color: "#0EA5E9", borderColor: "#BAE6FD" };
-            }
-            if ((mDom === '개방성' && fDom === '성실성') || (mDom === '성실성' && fDom === '개방성')) {
-                return { title: "🔭 비전과 현실", subtitle: "DREAM & REALITY", icon: "🚀", tags: ["#상호보완", "#최강팀워크", "#성장"], desc: "꿈을 꾸고 현실로 만드는 완벽한 파트너십", color: "#3B82F6", borderColor: "#BFDBFE" };
-            }
-            
-            // ── 우선순위 3: 3축 기반 — 희귀한 것 먼저 (v3.4 임계값) ──
+            // ── P2: 상호보완 (8개) ──
+            if ((mDom==='외향성'&&['정서안정','성실성'].includes(fDom))||(fDom==='외향성'&&['정서안정','성실성'].includes(mDom))) return {"title":"⚓ 닻과 돛","sub":"ANCHOR & SAIL","icon":"⛵","tags":["#균형","#이끌어줌","#받쳐줌"],"desc":"나아갈 힘과 머무를 곳이 되어주는 조화","color":"#0EA5E9","borderColor":"#BAE6FD"};
+            if ((mDom==='개방성'&&fDom==='성실성')||(mDom==='성실성'&&fDom==='개방성')) return {"title":"🔭 비전과 현실","sub":"DREAM & REALITY","icon":"🚀","tags":["#상호보완","#최강팀워크","#성장"],"desc":"꿈을 꾸고 현실로 만드는 완벽한 파트너십","color":"#3B82F6","borderColor":"#BFDBFE"};
+            if ((mDom==='우호성'&&fDom==='외향성')||(mDom==='외향성'&&fDom==='우호성')) return {"title":"☀️ 햇살과 바람","sub":"SUNSHINE & BREEZE","icon":"🌤️","tags":["#활기","#다정함","#인기커플"],"desc":"밝은 에너지와 따뜻한 배려가 함께하는 커플","color":"#F59E0B","borderColor":"#FDE68A"};
+            if ((mDom==='우호성'&&fDom==='성실성')||(mDom==='성실성'&&fDom==='우호성')) return {"title":"🏠 따뜻한 지붕","sub":"WARM ROOF","icon":"🏡","tags":["#가정적","#안정","#화목"],"desc":"규칙과 따뜻한 정이 어우러진 모범 가정","color":"#10B981","borderColor":"#A7F3D0"};
+            if ((mDom==='개방성'&&fDom==='정서안정')||(mDom==='정서안정'&&fDom==='개방성')) return {"title":"🌊 파도와 등대","sub":"WAVE & LIGHTHOUSE","icon":"🏖️","tags":["#자유","#안전","#도전"],"desc":"모험하는 마음을 든든히 지켜주는 관계","color":"#06B6D4","borderColor":"#CFFAFE"};
+            if ((mDom==='개방성'&&fDom==='우호성')||(mDom==='우호성'&&fDom==='개방성')) return {"title":"🌻 설레는 동행","sub":"EXCITING COMPANION","icon":"🤝","tags":["#탐험","#공감","#동행"],"desc":"새로운 세상을 향한 호기심에 따뜻한 공감이 함께하는 관계","color":"#8B5CF6","borderColor":"#DDD6FE"};
+            if ((mDom==='애착안정'&&fDom==='외향성')||(mDom==='외향성'&&fDom==='애착안정')) return {"title":"🎈 마음 놓는 사이","sub":"CAREFREE BOND","icon":"🎉","tags":["#활력","#신뢰","#자유로움"],"desc":"편안한 신뢰 위에서 마음껏 에너지를 발산할 수 있는 관계","color":"#7C3AED","borderColor":"#DDD6FE"};
+            if ((mDom==='애착안정'&&fDom==='성실성')||(mDom==='성실성'&&fDom==='애착안정')) return {"title":"🏗️ 함께 짓는 미래","sub":"BUILDING TOGETHER","icon":"📋","tags":["#신뢰","#계획","#미래"],"desc":"깊은 신뢰와 꼼꼼한 계획으로 미래를 함께 설계하는 관계","color":"#2563EB","borderColor":"#BFDBFE"};
+            // ── P3: 3축 기반 (5개) ──
             if (phaseGap >= 4) {
-                return { title: "🧲 이끄는 자와 받쳐주는 자", subtitle: "LEAD & SUPPORT", icon: "🤝", tags: ["#역할분담", "#시너지", "#자연스러움"], desc: "한 사람이 이끌고 한 사람이 받쳐주는 완벽한 호흡", color: "#7C3AED", borderColor: "#DDD6FE" };
+                if (avgAmp >= 6) return {"title":"🧲 이끄는 자와 받쳐주는 자","sub":"LEAD & SUPPORT","icon":"🤝","tags":["#역할분담","#시너지","#자연스러움"],"desc":"한 사람이 이끌고 한 사람이 받쳐주는 완벽한 호흡","color":"#7C3AED","borderColor":"#DDD6FE"};
+                return {"title":"🎐 소리 없는 이끌림","sub":"SILENT ATTRACTION","icon":"🫶","tags":["#차분한리드","#섬세함","#자연스러움"],"desc":"말 없이도 서로의 역할이 자연스럽게 맞물리는 관계","color":"#475569","borderColor":"#CBD5E1"};
             }
-            if (avgFreq <= 3) {
-                return { title: "🏰 견고한 성벽", subtitle: "SOLID CASTLE", icon: "🛡️", tags: ["#철벽방어", "#미래지향", "#계획적"], desc: "흔들림 없는 리듬으로 미래를 쌓아가는 전략가들", color: "#4B5563", borderColor: "#E5E7EB" };
-            }
-            if (avgAmp >= 8) {
-                return { title: "🎢 다이내믹 듀오", subtitle: "DYNAMIC ADVENTURE", icon: "🎡", tags: ["#모험", "#스릴", "#활력"], desc: "함께하면 에너지가 두 배, 매일이 새로운 커플", color: "#EF4444", borderColor: "#FECACA" };
-            }
-            
-            // ── 우선순위 4: 3축 전체 조화 ──
+            if (avgFreq <= 3 && avgAmp <= 5) return {"title":"🏰 견고한 성벽","sub":"SOLID CASTLE","icon":"🛡️","tags":["#철벽방어","#미래지향","#계획적"],"desc":"흔들림 없는 리듬으로 미래를 쌓아가는 전략가들","color":"#4B5563","borderColor":"#E5E7EB"};
+            if (avgFreq <= 3 && avgAmp > 5) return {"title":"🕯️ 꺼지지 않는 온기","sub":"EVERLASTING WARMTH","icon":"☕","tags":["#안정","#온기","#든든함"],"desc":"안정적인 리듬 위에 따뜻한 에너지가 늘 감도는 관계","color":"#0369A1","borderColor":"#BAE6FD"};
+            if (avgAmp >= 7) return {"title":"🎢 다이내믹 듀오","sub":"DYNAMIC DUO","icon":"🎡","tags":["#모험","#스릴","#활력"],"desc":"함께하면 에너지가 두 배, 매일이 새로운 커플","color":"#EF4444","borderColor":"#FECACA"};
+            // ── P4: 애착 조합 (3개) ──
+            if (atCombo === 'anxious-avoidant') return {"title":"💫 강렬한 끌림","sub":"INTENSE ATTRACTION","icon":"🧲","tags":["#끌림","#긴장감","#성장"],"desc":"서로 다른 리듬이 만들어내는 강한 이끌림의 관계","color":"#EC4899","borderColor":"#FBCFE8"};
+            if (atCombo === 'anxious-secure') return {"title":"🌸 안아주는 봄","sub":"EMBRACING SPRING","icon":"🌷","tags":["#치유","#포용","#안심"],"desc":"풍부한 감성을 든든히 안아주는 따뜻한 관계","color":"#F43F5E","borderColor":"#FECDD3"};
+            if (atCombo === 'avoidant-secure') return {"title":"🌙 느린 듯 깊은 사이","sub":"SLOWLY DEEPER","icon":"🌛","tags":["#존중","#여유","#신뢰"],"desc":"각자의 속도를 존중하며 천천히 깊어지는 관계","color":"#6366F1","borderColor":"#C7D2FE"};
+            // ── P5: 조화도 (3개) ──
             if (ampGap <= 2 && freqGap <= 2 && phaseGap <= 2) {
-                return { title: "💎 빛나는 원석", subtitle: "SHINING GEM", icon: "💍", tags: ["#삼박자", "#조화", "#찰떡궁합"], desc: "에너지, 리듬, 역할 모두 맞아 빛나는 만남", color: "#EC4899", borderColor: "#FBCFE8" };
+                if (avgAmp >= 6) return {"title":"💎 빛나는 원석","sub":"SHINING GEM","icon":"💍","tags":["#삼박자","#조화","#찰떡궁합"],"desc":"에너지, 리듬, 역할 모두 맞아 빛나는 만남","color":"#EC4899","borderColor":"#FBCFE8"};
+                if (avgFreq <= 5) return {"title":"🍵 편안한 하모니","sub":"EASY HARMONY","icon":"☕","tags":["#평온","#조화","#편안함"],"desc":"힘 빼지 않아도 자연스럽게 맞는 편안한 관계","color":"#059669","borderColor":"#A7F3D0"};
+                return {"title":"💓 설레는 하모니","sub":"FLUTTERING HARMONY","icon":"🎵","tags":["#감성","#공명","#설렘"],"desc":"풍부한 감정이 같은 리듬으로 함께 뛰는 관계","color":"#A855F7","borderColor":"#E9D5FF"};
             }
-            
-            // ── Fallback ──
-            return { title: "🌈 다채로운 프리즘", subtitle: "COLORFUL PRISM", icon: "🎨", tags: ["#개성", "#존중", "#새로움"], desc: "서로 다른 색이 만나 아름다운 무지개를 만듭니다", color: "#8B5CF6", borderColor: "#DDD6FE" };
+            // ── P6: 2순위 기반 (2개) ──
+            if (mT2 === fT2) return {"title":"🔮 발견하는 닮은꼴","sub":"DISCOVERING ALIKE","icon":"✨","tags":["#닮은꼴","#깊은연결","#설렘"],"desc":"알아갈수록 닮은 점을 발견하는 설렘","color":"#7C3AED","borderColor":"#DDD6FE"};
+            if (mT2 === fDom || fT2 === mDom) return {"title":"🧩 맞물리는 퍼즐","sub":"PERFECT FIT","icon":"🧩","tags":["#퍼즐","#보완","#재발견"],"desc":"서로의 숨겨진 면이 상대의 중심과 딱 맞물리는 관계","color":"#0891B2","borderColor":"#CFFAFE"};
+            // ── P7: 에너지 기반 + Fallback (3개) ──
+            if (avgAmp >= 6 && avgFreq >= 6) return {"title":"⚡ 타오르는 케미","sub":"BURNING CHEMISTRY","icon":"🔥","tags":["#케미","#강렬","#자극"],"desc":"서로 다른 강렬한 에너지가 만나 뜨거운 케미를 만드는 관계","color":"#DC2626","borderColor":"#FCA5A5"};
+            if (avgAmp <= 4 && avgFreq <= 4) return {"title":"🌿 고요한 깊이","sub":"QUIET DEPTH","icon":"🍃","tags":["#평화","#깊이","#내면"],"desc":"조용하지만 깊은 내면으로 연결되는 관계","color":"#16A34A","borderColor":"#86EFAC"};
+            return {"title":"🌈 다채로운 프리즘","sub":"COLORFUL PRISM","icon":"🎨","tags":["#개성","#존중","#새로움"],"desc":"서로 다른 색이 만나 아름다운 무지개를 만드는 관계","color":"#8B5CF6","borderColor":"#DDD6FE"};
         }
-        // 축별 슬롯 수 — 정규화용 (v3.4: 이중카운팅 제거, 단일 SLOT_COUNT)
-        const SLOT_COUNT = { '개방성':12, '성실성':18, '외향성':10, '우호성':10, '정서안정':9, '애착안정':13, '애착불안':6, '애착회피':6 };
+        // 축별 슬롯 수 — 정규화용 (v3.5: 실제 태그 수로 보정)
+        const SLOT_COUNT = { '개방성':15, '성실성':22, '외향성':11, '우호성':12, '정서안정':10, '애착안정':13, '애착불안':6, '애착회피':7 };
+        // v3.5 Z-score 정규화 상수 (이론적 평균 & 표준편차, 24문항 균등확률 기반)
+        const AXIS_MEAN = { '개방성':3.75,'성실성':5.50,'외향성':2.75,'우호성':3.00,'정서안정':2.50,'애착안정':3.25,'애착불안':1.50,'애착회피':1.75 };
+        const AXIS_STD  = { '개방성':1.5612,'성실성':1.9039,'외향성':1.3919,'우호성':1.4142,'정서안정':1.3229,'애착안정':1.5612,'애착불안':1.0607,'애착회피':1.0897 };
 
         function getDominantColor(axes) {
-            let maxNorm = -1;
+            let maxZ = -Infinity;
             let domTrait = '우호성'; 
             const axesKeys = ['개방성', '성실성', '외향성', '우호성', '정서안정', '애착안정', '애착불안', '애착회피'];
             for (const trait of axesKeys) {
-                const norm = (axes[trait] || 0) / (SLOT_COUNT[trait] || 1);
-                if (norm > maxNorm) {
-                    maxNorm = norm;
+                const z = ((axes[trait] || 0) - AXIS_MEAN[trait]) / AXIS_STD[trait];
+                if (z > maxZ) {
+                    maxZ = z;
                     domTrait = trait;
                 }
             }
             return traitColors[domTrait] || traitColors['우호성'];
         }
         function getDominantTrait(axes) {
-            let maxNorm = -1, dom = '우호성';
+            let maxZ = -Infinity, dom = '우호성';
             for (const [trait, score] of Object.entries(axes)) {
-                const norm = score / (SLOT_COUNT[trait] || 1);
-                if (norm > maxNorm) { maxNorm = norm; dom = trait; }
+                const z = (score - AXIS_MEAN[trait]) / AXIS_STD[trait];
+                if (z > maxZ) { maxZ = z; dom = trait; }
             }
             return dom;
         }
@@ -3140,14 +3147,14 @@
             function describePersonal(axes) {
                 // 정규화 정렬: 슬롯 수로 나눠 공정하게 top1/top2 결정 (v3.2)
                 const all = [
-                    { k:'외향성', v: (axes['외향성']||0) / (SLOT_COUNT['외향성']||1) },
-                    { k:'개방성', v: (axes['개방성']||0) / (SLOT_COUNT['개방성']||1) },
-                    { k:'성실성', v: (axes['성실성']||0) / (SLOT_COUNT['성실성']||1) },
-                    { k:'우호성', v: (axes['우호성']||0) / (SLOT_COUNT['우호성']||1) },
-                    { k:'정서안정', v: (axes['정서안정']||0) / (SLOT_COUNT['정서안정']||1) },
-                    { k:'애착안정', v: (axes['애착안정']||0) / (SLOT_COUNT['애착안정']||1) },
-                    { k:'애착불안', v: (axes['애착불안']||0) / (SLOT_COUNT['애착불안']||1) },
-                    { k:'애착회피', v: (axes['애착회피']||0) / (SLOT_COUNT['애착회피']||1) }
+                    { k:'외향성', v: ((axes['외향성']||0) - AXIS_MEAN['외향성']) / AXIS_STD['외향성'] },
+                    { k:'개방성', v: ((axes['개방성']||0) - AXIS_MEAN['개방성']) / AXIS_STD['개방성'] },
+                    { k:'성실성', v: ((axes['성실성']||0) - AXIS_MEAN['성실성']) / AXIS_STD['성실성'] },
+                    { k:'우호성', v: ((axes['우호성']||0) - AXIS_MEAN['우호성']) / AXIS_STD['우호성'] },
+                    { k:'정서안정', v: ((axes['정서안정']||0) - AXIS_MEAN['정서안정']) / AXIS_STD['정서안정'] },
+                    { k:'애착안정', v: ((axes['애착안정']||0) - AXIS_MEAN['애착안정']) / AXIS_STD['애착안정'] },
+                    { k:'애착불안', v: ((axes['애착불안']||0) - AXIS_MEAN['애착불안']) / AXIS_STD['애착불안'] },
+                    { k:'애착회피', v: ((axes['애착회피']||0) - AXIS_MEAN['애착회피']) / AXIS_STD['애착회피'] }
                 ].sort((a,b) => b.v - a.v);
                 const top1 = all[0].k, top2 = all[1].k;
 
