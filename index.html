@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>결하다 - 삼중뇌 & Big 5 심층 궁합 (v4.0)</title>
+    <title>결하다 - 삼중뇌 & Big 5 심층 궁합 (v5.0)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -663,7 +663,10 @@
                 <!-- 프로필 매칭 (Red Thread) -->
                 <div class="profile-match-area">
                     <!-- 이모지 제거, JS에서 배경색 적용 -->
-                    <div class="profile-circle" id="result-circle-male"></div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                        <div class="profile-circle" id="result-circle-male"></div>
+                        <span id="circle-color-name-m" style="font-size:11px;font-weight:700;color:#475569;letter-spacing:0.5px;">—</span>
+                    </div>
                     
                     <!-- 연결선 SVG (Gradient Definition 포함) -->
                     <div class="connection-container">
@@ -677,7 +680,10 @@
                     </div>
                     
                     <!-- 이모지 제거, JS에서 배경색 적용 -->
-                    <div class="profile-circle" id="result-circle-female"></div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                        <div class="profile-circle" id="result-circle-female"></div>
+                        <span id="circle-color-name-f" style="font-size:11px;font-weight:700;color:#475569;letter-spacing:0.5px;">—</span>
+                    </div>
                 </div>
 
                 <div class="p-8 text-center">
@@ -1477,6 +1483,7 @@
                             <!-- 태그 -->
                             <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
                                 <span id="wave-tag-color-m" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #93c5fd;color:#2563eb;">🎨 —</span>
+                                <span id="wave-tag-attach-m" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #c4b5fd;color:#6366F1;">🤝 —</span>
                                 <span id="wave-tag-quad-m" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #93c5fd;color:#475569;">⚡ —</span>
                                 <span id="wave-tag-phase-m" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #93c5fd;color:#92400e;">🤝 —</span>
                             </div>
@@ -1520,6 +1527,7 @@
                             <!-- 태그 -->
                             <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
                                 <span id="wave-tag-color-f" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #f9a8d4;color:#be185d;">🎨 —</span>
+                                <span id="wave-tag-attach-f" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #f9a8d4;color:#6366F1;">🤝 —</span>
                                 <span id="wave-tag-quad-f" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #f9a8d4;color:#475569;">⚡ —</span>
                                 <span id="wave-tag-phase-f" style="display:inline-flex;align-items:center;gap:3px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;background:#fff;border:1.5px solid #f9a8d4;color:#92400e;">🤝 —</span>
                             </div>
@@ -1676,46 +1684,64 @@
                                     </div>
                                 </div>
 
-                                <!-- 색상 해석 -->
+                                <!-- 색상 해석 (v5.0: Big5 20색) -->
                                 <div>
                                     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
                                         <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:linear-gradient(135deg,#fae8ff,#e9d5ff);border-radius:8px;font-size:14px;">🎨</span>
-                                        <span style="font-size:14px;font-weight:700;color:#1e293b;">파동 색상 = 대표 성향</span>
+                                        <span style="font-size:14px;font-weight:700;color:#1e293b;">파동 색상 = Big5 성향 조합 (20색)</span>
                                     </div>
-                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-                                        <div style="background:#fff;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
-                                            <span style="width:16px;height:16px;border-radius:50%;background:#8B5CF6;flex-shrink:0;box-shadow:0 1px 3px rgba(139,92,246,0.4);"></span>
-                                            <div><span style="font-size:12px;font-weight:700;color:#7c3aed;">보라</span><span style="font-size:11px;color:#6b7280;"> · 새로운 걸 좋아하는</span></div>
+                                    <p style="font-size:11px;color:#6b7280;margin-bottom:8px;">top1(주 성향) + top2(보조 성향) 조합으로 고유한 색상이 결정돼요</p>
+                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#6C5CE7;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#6C5CE7;">딥 아이리스</span><span style="font-size:10px;color:#9ca3af;"> 개방+성실</span></div>
                                         </div>
-                                        <div style="background:#fff;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
-                                            <span style="width:16px;height:16px;border-radius:50%;background:#3B82F6;flex-shrink:0;box-shadow:0 1px 3px rgba(59,130,246,0.4);"></span>
-                                            <div><span style="font-size:12px;font-weight:700;color:#2563eb;">파랑</span><span style="font-size:11px;color:#6b7280;"> · 계획적이고 꼼꼼한</span></div>
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#D63384;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#D63384;">비비드 마젠타</span><span style="font-size:10px;color:#9ca3af;"> 개방+외향</span></div>
                                         </div>
-                                        <div style="background:#fff;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
-                                            <span style="width:16px;height:16px;border-radius:50%;background:#F97316;flex-shrink:0;box-shadow:0 1px 3px rgba(249,115,22,0.4);"></span>
-                                            <div><span style="font-size:12px;font-weight:700;color:#ea580c;">주황</span><span style="font-size:11px;color:#6b7280;"> · 밝고 활발한</span></div>
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#A78BFA;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#A78BFA;">라벤더</span><span style="font-size:10px;color:#9ca3af;"> 개방+우호</span></div>
                                         </div>
-                                        <div style="background:#fff;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
-                                            <span style="width:16px;height:16px;border-radius:50%;background:#10B981;flex-shrink:0;box-shadow:0 1px 3px rgba(16,185,129,0.4);"></span>
-                                            <div><span style="font-size:12px;font-weight:700;color:#059669;">초록</span><span style="font-size:11px;color:#6b7280;"> · 다정하고 배려 깊은</span></div>
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#4338CA;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#4338CA;">로열 블루</span><span style="font-size:10px;color:#9ca3af;"> 성실+개방</span></div>
                                         </div>
-                                        <div style="background:#fff;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
-                                            <span style="width:16px;height:16px;border-radius:50%;background:#06B6D4;flex-shrink:0;box-shadow:0 1px 3px rgba(6,182,212,0.4);"></span>
-                                            <div><span style="font-size:12px;font-weight:700;color:#0891b2;">청록</span><span style="font-size:11px;color:#6b7280;"> · 차분하고 안정적인</span></div>
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#2563EB;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#2563EB;">사파이어</span><span style="font-size:10px;color:#9ca3af;"> 성실+외향</span></div>
                                         </div>
-                                        <div style="background:#fff;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
-                                            <span style="width:16px;height:16px;border-radius:50%;background:#6366F1;flex-shrink:0;box-shadow:0 1px 3px rgba(99,102,241,0.4);"></span>
-                                            <div><span style="font-size:12px;font-weight:700;color:#4f46e5;">남색</span><span style="font-size:11px;color:#6b7280;"> · 믿음직하고 든든한</span></div>
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#1E3A5F;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#1E3A5F;">네이비</span><span style="font-size:10px;color:#9ca3af;"> 성실+정서</span></div>
                                         </div>
-                                        <div style="background:#fff;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
-                                            <span style="width:16px;height:16px;border-radius:50%;background:#EF4444;flex-shrink:0;box-shadow:0 1px 3px rgba(239,68,68,0.4);"></span>
-                                            <div><span style="font-size:12px;font-weight:700;color:#dc2626;">빨강</span><span style="font-size:11px;color:#6b7280;"> · 감수성이 풍부한</span></div>
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#F43F5E;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#F43F5E;">코럴 레드</span><span style="font-size:10px;color:#9ca3af;"> 외향+개방</span></div>
                                         </div>
-                                        <div style="background:#fff;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
-                                            <span style="width:16px;height:16px;border-radius:50%;background:#64748B;flex-shrink:0;box-shadow:0 1px 3px rgba(100,116,139,0.4);"></span>
-                                            <div><span style="font-size:12px;font-weight:700;color:#475569;">은색</span><span style="font-size:11px;color:#6b7280;"> · 자유롭고 주관이 뚜렷한</span></div>
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#FB923C;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#FB923C;">피치</span><span style="font-size:10px;color:#9ca3af;"> 외향+우호</span></div>
+                                        </div>
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#059669;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#059669;">에메랄드</span><span style="font-size:10px;color:#9ca3af;"> 우호+개방</span></div>
+                                        </div>
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#14B8A6;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#14B8A6;">틸</span><span style="font-size:10px;color:#9ca3af;"> 우호+정서</span></div>
+                                        </div>
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#7C3AED;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#7C3AED;">울트라 바이올렛</span><span style="font-size:10px;color:#9ca3af;"> 정서+개방</span></div>
+                                        </div>
+                                        <div style="background:#fff;border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;">
+                                            <span style="width:12px;height:12px;border-radius:50%;background:#2DD4BF;flex-shrink:0;"></span>
+                                            <div><span style="font-size:11px;font-weight:700;color:#2DD4BF;">민트</span><span style="font-size:10px;color:#9ca3af;"> 정서+우호</span></div>
                                         </div>
                                     </div>
+                                    <p style="font-size:10px;color:#9ca3af;margin-top:4px;text-align:center;">외 8가지 조합 포함 총 20색</p>
                                 </div>
                             </div>
                         </details>
@@ -2015,6 +2041,29 @@
             '개방성': ['#8B5CF6', '#EDE9FE'], '성실성': ['#3B82F6', '#DBEAFE'], '외향성': ['#F97316', '#FFEDD5'], 
             '우호성': ['#10B981', '#D1FAE5'], '정서안정': ['#06B6D4', '#CFFAFE'], '애착안정': ['#6366F1', '#E0E7FF'], 
             '애착불안': ['#EF4444', '#FEE2E2'], '애착회피': ['#64748B', '#F1F5F9'] 
+        };
+        // v5.0: Big5 top1+top2 조합별 고유 색상 (색채 심리학 기반 20색)
+        const traitComboColors = {
+            '개방성+성실성': ['#6C5CE7', '#DCD6F7', '딥 아이리스'],
+            '개방성+외향성': ['#D63384', '#F7D6E6', '비비드 마젠타'],
+            '개방성+우호성': ['#A78BFA', '#EDE9FE', '라벤더'],
+            '개방성+정서안정': ['#818CF8', '#E0E7FF', '페리윙클'],
+            '성실성+개방성': ['#4338CA', '#C7D2FE', '로열 블루'],
+            '성실성+외향성': ['#2563EB', '#BFDBFE', '사파이어'],
+            '성실성+우호성': ['#0369A1', '#BAE6FD', '오션 블루'],
+            '성실성+정서안정': ['#1E3A5F', '#CBD5E1', '네이비'],
+            '외향성+개방성': ['#F43F5E', '#FECDD3', '코럴 레드'],
+            '외향성+성실성': ['#EA580C', '#FED7AA', '앰버'],
+            '외향성+우호성': ['#FB923C', '#FFEDD5', '피치'],
+            '외향성+정서안정': ['#B45309', '#FEF3C7', '골든 브라운'],
+            '우호성+개방성': ['#059669', '#D1FAE5', '에메랄드'],
+            '우호성+성실성': ['#166534', '#BBF7D0', '포레스트'],
+            '우호성+외향성': ['#4ADE80', '#DCFCE7', '스프링 그린'],
+            '우호성+정서안정': ['#14B8A6', '#CCFBF1', '틸'],
+            '정서안정+개방성': ['#7C3AED', '#DDD6FE', '울트라 바이올렛'],
+            '정서안정+성실성': ['#155E75', '#CFFAFE', '딥 틸'],
+            '정서안정+외향성': ['#22D3EE', '#D5F5F6', '아쿠아'],
+            '정서안정+우호성': ['#2DD4BF', '#D5F5F6', '민트'],
         };
         
         // [NEW] 성향별 점수 & 순위 기반 동적 설명 (전문가 톤으로 수정됨)
@@ -2536,45 +2585,45 @@
             
             // ── P1: 유사성 (4개) ──
             if (mDom === fDom) {
-                if (mDom === '애착불안' || mDom === '애착회피') return {"title":"🪞 영혼의 데칼코마니","sub":"MIRROR IMAGE","icon":"👯","tags":["#도플갱어","#소울메이트","#이심전심"],"desc":"말하지 않아도 통하는 거울 같은 사이","color":"#6366F1","borderColor":"#C7D2FE"};
-                if (mDom === '외향성' || mDom === '정서안정') return {"title":"🔥 열정의 스파크","sub":"PASSIONATE SOULS","icon":"🎆","tags":["#에너지폭발","#환상의콤비","#지루할틈없음"],"desc":"함께하면 세상이 두 배로 즐거운 열정 커플","color":"#F97316","borderColor":"#FED7AA"};
-                if (mDom === '우호성' || mDom === '애착안정') return {"title":"🧸 포근한 솜이불","sub":"WARM EMBRACE","icon":"🧶","tags":["#힐링","#배려왕","#따뜻함"],"desc":"바라만 봐도 마음이 놓이는 치유의 관계","color":"#EAB308","borderColor":"#FDE047"};
-                if (mDom === '성실성' || mDom === '개방성') return {"title":"🌳 뿌리 깊은 나무","sub":"DEEP ROOTS","icon":"🏞️","tags":["#안정감","#신뢰","#평온함"],"desc":"서로에게 가장 든든한 안식처가 되어주는 관계","color":"#059669","borderColor":"#A7F3D0"};
+                if (mDom === '애착불안' || mDom === '애착회피') return {"title":"🪞 영혼의 데칼코마니","subtitle":"MIRROR IMAGE","icon":"👯","tags":["#도플갱어","#소울메이트","#이심전심"],"desc":"말하지 않아도 통하는 거울 같은 사이","color":"#6366F1","borderColor":"#C7D2FE"};
+                if (mDom === '외향성' || mDom === '정서안정') return {"title":"🔥 열정의 스파크","subtitle":"PASSIONATE SOULS","icon":"🎆","tags":["#에너지폭발","#환상의콤비","#지루할틈없음"],"desc":"함께하면 세상이 두 배로 즐거운 열정 커플","color":"#F97316","borderColor":"#FED7AA"};
+                if (mDom === '우호성' || mDom === '애착안정') return {"title":"🧸 포근한 솜이불","subtitle":"WARM EMBRACE","icon":"🧶","tags":["#힐링","#배려왕","#따뜻함"],"desc":"바라만 봐도 마음이 놓이는 치유의 관계","color":"#EAB308","borderColor":"#FDE047"};
+                if (mDom === '성실성' || mDom === '개방성') return {"title":"🌳 뿌리 깊은 나무","subtitle":"DEEP ROOTS","icon":"🏞️","tags":["#안정감","#신뢰","#평온함"],"desc":"서로에게 가장 든든한 안식처가 되어주는 관계","color":"#059669","borderColor":"#A7F3D0"};
             }
             // ── P2: 상호보완 (8개) ──
-            if ((mDom==='외향성'&&['정서안정','성실성'].includes(fDom))||(fDom==='외향성'&&['정서안정','성실성'].includes(mDom))) return {"title":"⚓ 닻과 돛","sub":"ANCHOR & SAIL","icon":"⛵","tags":["#균형","#이끌어줌","#받쳐줌"],"desc":"나아갈 힘과 머무를 곳이 되어주는 조화","color":"#0EA5E9","borderColor":"#BAE6FD"};
-            if ((mDom==='개방성'&&fDom==='성실성')||(mDom==='성실성'&&fDom==='개방성')) return {"title":"🔭 비전과 현실","sub":"DREAM & REALITY","icon":"🚀","tags":["#상호보완","#최강팀워크","#성장"],"desc":"꿈을 꾸고 현실로 만드는 완벽한 파트너십","color":"#3B82F6","borderColor":"#BFDBFE"};
-            if ((mDom==='우호성'&&fDom==='외향성')||(mDom==='외향성'&&fDom==='우호성')) return {"title":"☀️ 햇살과 바람","sub":"SUNSHINE & BREEZE","icon":"🌤️","tags":["#활기","#다정함","#인기커플"],"desc":"밝은 에너지와 따뜻한 배려가 함께하는 커플","color":"#F59E0B","borderColor":"#FDE68A"};
-            if ((mDom==='우호성'&&fDom==='성실성')||(mDom==='성실성'&&fDom==='우호성')) return {"title":"🏠 따뜻한 지붕","sub":"WARM ROOF","icon":"🏡","tags":["#가정적","#안정","#화목"],"desc":"규칙과 따뜻한 정이 어우러진 모범 가정","color":"#10B981","borderColor":"#A7F3D0"};
-            if ((mDom==='개방성'&&fDom==='정서안정')||(mDom==='정서안정'&&fDom==='개방성')) return {"title":"🌊 파도와 등대","sub":"WAVE & LIGHTHOUSE","icon":"🏖️","tags":["#자유","#안전","#도전"],"desc":"모험하는 마음을 든든히 지켜주는 관계","color":"#06B6D4","borderColor":"#CFFAFE"};
-            if ((mDom==='개방성'&&fDom==='우호성')||(mDom==='우호성'&&fDom==='개방성')) return {"title":"🌻 설레는 동행","sub":"EXCITING COMPANION","icon":"🤝","tags":["#탐험","#공감","#동행"],"desc":"새로운 세상을 향한 호기심에 따뜻한 공감이 함께하는 관계","color":"#8B5CF6","borderColor":"#DDD6FE"};
-            if ((mDom==='애착안정'&&fDom==='외향성')||(mDom==='외향성'&&fDom==='애착안정')) return {"title":"🎈 마음 놓는 사이","sub":"CAREFREE BOND","icon":"🎉","tags":["#활력","#신뢰","#자유로움"],"desc":"편안한 신뢰 위에서 마음껏 에너지를 발산할 수 있는 관계","color":"#7C3AED","borderColor":"#DDD6FE"};
-            if ((mDom==='애착안정'&&fDom==='성실성')||(mDom==='성실성'&&fDom==='애착안정')) return {"title":"🏗️ 함께 짓는 미래","sub":"BUILDING TOGETHER","icon":"📋","tags":["#신뢰","#계획","#미래"],"desc":"깊은 신뢰와 꼼꼼한 계획으로 미래를 함께 설계하는 관계","color":"#2563EB","borderColor":"#BFDBFE"};
+            if ((mDom==='외향성'&&['정서안정','성실성'].includes(fDom))||(fDom==='외향성'&&['정서안정','성실성'].includes(mDom))) return {"title":"⚓ 닻과 돛","subtitle":"ANCHOR & SAIL","icon":"⛵","tags":["#균형","#이끌어줌","#받쳐줌"],"desc":"나아갈 힘과 머무를 곳이 되어주는 조화","color":"#0EA5E9","borderColor":"#BAE6FD"};
+            if ((mDom==='개방성'&&fDom==='성실성')||(mDom==='성실성'&&fDom==='개방성')) return {"title":"🔭 비전과 현실","subtitle":"DREAM & REALITY","icon":"🚀","tags":["#상호보완","#최강팀워크","#성장"],"desc":"꿈을 꾸고 현실로 만드는 완벽한 파트너십","color":"#3B82F6","borderColor":"#BFDBFE"};
+            if ((mDom==='우호성'&&fDom==='외향성')||(mDom==='외향성'&&fDom==='우호성')) return {"title":"☀️ 햇살과 바람","subtitle":"SUNSHINE & BREEZE","icon":"🌤️","tags":["#활기","#다정함","#인기커플"],"desc":"밝은 에너지와 따뜻한 배려가 함께하는 커플","color":"#F59E0B","borderColor":"#FDE68A"};
+            if ((mDom==='우호성'&&fDom==='성실성')||(mDom==='성실성'&&fDom==='우호성')) return {"title":"🏠 따뜻한 지붕","subtitle":"WARM ROOF","icon":"🏡","tags":["#가정적","#안정","#화목"],"desc":"규칙과 따뜻한 정이 어우러진 모범 가정","color":"#10B981","borderColor":"#A7F3D0"};
+            if ((mDom==='개방성'&&fDom==='정서안정')||(mDom==='정서안정'&&fDom==='개방성')) return {"title":"🌊 파도와 등대","subtitle":"WAVE & LIGHTHOUSE","icon":"🏖️","tags":["#자유","#안전","#도전"],"desc":"모험하는 마음을 든든히 지켜주는 관계","color":"#06B6D4","borderColor":"#CFFAFE"};
+            if ((mDom==='개방성'&&fDom==='우호성')||(mDom==='우호성'&&fDom==='개방성')) return {"title":"🌻 설레는 동행","subtitle":"EXCITING COMPANION","icon":"🤝","tags":["#탐험","#공감","#동행"],"desc":"새로운 세상을 향한 호기심에 따뜻한 공감이 함께하는 관계","color":"#8B5CF6","borderColor":"#DDD6FE"};
+            if ((mDom==='애착안정'&&fDom==='외향성')||(mDom==='외향성'&&fDom==='애착안정')) return {"title":"🎈 마음 놓는 사이","subtitle":"CAREFREE BOND","icon":"🎉","tags":["#활력","#신뢰","#자유로움"],"desc":"편안한 신뢰 위에서 마음껏 에너지를 발산할 수 있는 관계","color":"#7C3AED","borderColor":"#DDD6FE"};
+            if ((mDom==='애착안정'&&fDom==='성실성')||(mDom==='성실성'&&fDom==='애착안정')) return {"title":"🏗️ 함께 짓는 미래","subtitle":"BUILDING TOGETHER","icon":"📋","tags":["#신뢰","#계획","#미래"],"desc":"깊은 신뢰와 꼼꼼한 계획으로 미래를 함께 설계하는 관계","color":"#2563EB","borderColor":"#BFDBFE"};
             // ── P3: 3축 기반 (5개) ──
             if (phaseGap >= 4) {
-                if (avgAmp >= 6) return {"title":"🧲 이끄는 자와 받쳐주는 자","sub":"LEAD & SUPPORT","icon":"🤝","tags":["#역할분담","#시너지","#자연스러움"],"desc":"한 사람이 이끌고 한 사람이 받쳐주는 완벽한 호흡","color":"#7C3AED","borderColor":"#DDD6FE"};
-                return {"title":"🎐 소리 없는 이끌림","sub":"SILENT ATTRACTION","icon":"🫶","tags":["#차분한리드","#섬세함","#자연스러움"],"desc":"말 없이도 서로의 역할이 자연스럽게 맞물리는 관계","color":"#475569","borderColor":"#CBD5E1"};
+                if (avgAmp >= 6) return {"title":"🧲 이끄는 자와 받쳐주는 자","subtitle":"LEAD & SUPPORT","icon":"🤝","tags":["#역할분담","#시너지","#자연스러움"],"desc":"한 사람이 이끌고 한 사람이 받쳐주는 완벽한 호흡","color":"#7C3AED","borderColor":"#DDD6FE"};
+                return {"title":"🎐 소리 없는 이끌림","subtitle":"SILENT ATTRACTION","icon":"🫶","tags":["#차분한리드","#섬세함","#자연스러움"],"desc":"말 없이도 서로의 역할이 자연스럽게 맞물리는 관계","color":"#475569","borderColor":"#CBD5E1"};
             }
-            if (avgFreq <= 3 && avgAmp <= 5) return {"title":"🏰 견고한 성벽","sub":"SOLID CASTLE","icon":"🛡️","tags":["#철벽방어","#미래지향","#계획적"],"desc":"흔들림 없는 리듬으로 미래를 쌓아가는 전략가들","color":"#4B5563","borderColor":"#E5E7EB"};
-            if (avgFreq <= 3 && avgAmp > 5) return {"title":"🕯️ 꺼지지 않는 온기","sub":"EVERLASTING WARMTH","icon":"☕","tags":["#안정","#온기","#든든함"],"desc":"안정적인 리듬 위에 따뜻한 에너지가 늘 감도는 관계","color":"#0369A1","borderColor":"#BAE6FD"};
-            if (avgAmp >= 7) return {"title":"🎢 다이내믹 듀오","sub":"DYNAMIC DUO","icon":"🎡","tags":["#모험","#스릴","#활력"],"desc":"함께하면 에너지가 두 배, 매일이 새로운 커플","color":"#EF4444","borderColor":"#FECACA"};
+            if (avgFreq <= 3 && avgAmp <= 5) return {"title":"🏰 견고한 성벽","subtitle":"SOLID CASTLE","icon":"🛡️","tags":["#철벽방어","#미래지향","#계획적"],"desc":"흔들림 없는 리듬으로 미래를 쌓아가는 전략가들","color":"#4B5563","borderColor":"#E5E7EB"};
+            if (avgFreq <= 3 && avgAmp > 5) return {"title":"🕯️ 꺼지지 않는 온기","subtitle":"EVERLASTING WARMTH","icon":"☕","tags":["#안정","#온기","#든든함"],"desc":"안정적인 리듬 위에 따뜻한 에너지가 늘 감도는 관계","color":"#0369A1","borderColor":"#BAE6FD"};
+            if (avgAmp >= 7) return {"title":"🎢 다이내믹 듀오","subtitle":"DYNAMIC DUO","icon":"🎡","tags":["#모험","#스릴","#활력"],"desc":"함께하면 에너지가 두 배, 매일이 새로운 커플","color":"#EF4444","borderColor":"#FECACA"};
             // ── P4: 애착 조합 (3개) ──
-            if (atCombo === 'anxious-avoidant') return {"title":"💫 강렬한 끌림","sub":"INTENSE ATTRACTION","icon":"🧲","tags":["#끌림","#긴장감","#성장"],"desc":"서로 다른 리듬이 만들어내는 강한 이끌림의 관계","color":"#EC4899","borderColor":"#FBCFE8"};
-            if (atCombo === 'anxious-secure') return {"title":"🌸 안아주는 봄","sub":"EMBRACING SPRING","icon":"🌷","tags":["#치유","#포용","#안심"],"desc":"풍부한 감성을 든든히 안아주는 따뜻한 관계","color":"#F43F5E","borderColor":"#FECDD3"};
-            if (atCombo === 'avoidant-secure') return {"title":"🌙 느린 듯 깊은 사이","sub":"SLOWLY DEEPER","icon":"🌛","tags":["#존중","#여유","#신뢰"],"desc":"각자의 속도를 존중하며 천천히 깊어지는 관계","color":"#6366F1","borderColor":"#C7D2FE"};
+            if (atCombo === 'anxious-avoidant') return {"title":"💫 강렬한 끌림","subtitle":"INTENSE ATTRACTION","icon":"🧲","tags":["#끌림","#긴장감","#성장"],"desc":"서로 다른 리듬이 만들어내는 강한 이끌림의 관계","color":"#EC4899","borderColor":"#FBCFE8"};
+            if (atCombo === 'anxious-secure') return {"title":"🌸 안아주는 봄","subtitle":"EMBRACING SPRING","icon":"🌷","tags":["#치유","#포용","#안심"],"desc":"풍부한 감성을 든든히 안아주는 따뜻한 관계","color":"#F43F5E","borderColor":"#FECDD3"};
+            if (atCombo === 'avoidant-secure') return {"title":"🌙 느린 듯 깊은 사이","subtitle":"SLOWLY DEEPER","icon":"🌛","tags":["#존중","#여유","#신뢰"],"desc":"각자의 속도를 존중하며 천천히 깊어지는 관계","color":"#6366F1","borderColor":"#C7D2FE"};
             // ── P5: 조화도 (3개) ──
             if (ampGap <= 2 && freqGap <= 2 && phaseGap <= 2) {
-                if (avgAmp >= 6) return {"title":"💎 빛나는 원석","sub":"SHINING GEM","icon":"💍","tags":["#삼박자","#조화","#찰떡궁합"],"desc":"에너지, 리듬, 역할 모두 맞아 빛나는 만남","color":"#EC4899","borderColor":"#FBCFE8"};
-                if (avgFreq <= 5) return {"title":"🍵 편안한 하모니","sub":"EASY HARMONY","icon":"☕","tags":["#평온","#조화","#편안함"],"desc":"힘 빼지 않아도 자연스럽게 맞는 편안한 관계","color":"#059669","borderColor":"#A7F3D0"};
-                return {"title":"💓 설레는 하모니","sub":"FLUTTERING HARMONY","icon":"🎵","tags":["#감성","#공명","#설렘"],"desc":"풍부한 감정이 같은 리듬으로 함께 뛰는 관계","color":"#A855F7","borderColor":"#E9D5FF"};
+                if (avgAmp >= 6) return {"title":"💎 빛나는 원석","subtitle":"SHINING GEM","icon":"💍","tags":["#삼박자","#조화","#찰떡궁합"],"desc":"에너지, 리듬, 역할 모두 맞아 빛나는 만남","color":"#EC4899","borderColor":"#FBCFE8"};
+                if (avgFreq <= 5) return {"title":"🍵 편안한 하모니","subtitle":"EASY HARMONY","icon":"☕","tags":["#평온","#조화","#편안함"],"desc":"힘 빼지 않아도 자연스럽게 맞는 편안한 관계","color":"#059669","borderColor":"#A7F3D0"};
+                return {"title":"💓 설레는 하모니","subtitle":"FLUTTERING HARMONY","icon":"🎵","tags":["#감성","#공명","#설렘"],"desc":"풍부한 감정이 같은 리듬으로 함께 뛰는 관계","color":"#A855F7","borderColor":"#E9D5FF"};
             }
             // ── P6: 2순위 기반 (2개) ──
-            if (mT2 === fT2) return {"title":"🔮 발견하는 닮은꼴","sub":"DISCOVERING ALIKE","icon":"✨","tags":["#닮은꼴","#깊은연결","#설렘"],"desc":"알아갈수록 닮은 점을 발견하는 설렘","color":"#7C3AED","borderColor":"#DDD6FE"};
-            if (mT2 === fDom || fT2 === mDom) return {"title":"🧩 맞물리는 퍼즐","sub":"PERFECT FIT","icon":"🧩","tags":["#퍼즐","#보완","#재발견"],"desc":"서로의 숨겨진 면이 상대의 중심과 딱 맞물리는 관계","color":"#0891B2","borderColor":"#CFFAFE"};
+            if (mT2 === fT2) return {"title":"🔮 발견하는 닮은꼴","subtitle":"DISCOVERING ALIKE","icon":"✨","tags":["#닮은꼴","#깊은연결","#설렘"],"desc":"알아갈수록 닮은 점을 발견하는 설렘","color":"#7C3AED","borderColor":"#DDD6FE"};
+            if (mT2 === fDom || fT2 === mDom) return {"title":"🧩 맞물리는 퍼즐","subtitle":"PERFECT FIT","icon":"🧩","tags":["#퍼즐","#보완","#재발견"],"desc":"서로의 숨겨진 면이 상대의 중심과 딱 맞물리는 관계","color":"#0891B2","borderColor":"#CFFAFE"};
             // ── P7: 에너지 기반 + Fallback (3개) ──
-            if (avgAmp >= 6 && avgFreq >= 6) return {"title":"⚡ 타오르는 케미","sub":"BURNING CHEMISTRY","icon":"🔥","tags":["#케미","#강렬","#자극"],"desc":"서로 다른 강렬한 에너지가 만나 뜨거운 케미를 만드는 관계","color":"#DC2626","borderColor":"#FCA5A5"};
-            if (avgAmp <= 4 && avgFreq <= 4) return {"title":"🌿 고요한 깊이","sub":"QUIET DEPTH","icon":"🍃","tags":["#평화","#깊이","#내면"],"desc":"조용하지만 깊은 내면으로 연결되는 관계","color":"#16A34A","borderColor":"#86EFAC"};
-            return {"title":"🌈 다채로운 프리즘","sub":"COLORFUL PRISM","icon":"🎨","tags":["#개성","#존중","#새로움"],"desc":"서로 다른 색이 만나 아름다운 무지개를 만드는 관계","color":"#8B5CF6","borderColor":"#DDD6FE"};
+            if (avgAmp >= 6 && avgFreq >= 6) return {"title":"⚡ 타오르는 케미","subtitle":"BURNING CHEMISTRY","icon":"🔥","tags":["#케미","#강렬","#자극"],"desc":"서로 다른 강렬한 에너지가 만나 뜨거운 케미를 만드는 관계","color":"#DC2626","borderColor":"#FCA5A5"};
+            if (avgAmp <= 4 && avgFreq <= 4) return {"title":"🌿 고요한 깊이","subtitle":"QUIET DEPTH","icon":"🍃","tags":["#평화","#깊이","#내면"],"desc":"조용하지만 깊은 내면으로 연결되는 관계","color":"#16A34A","borderColor":"#86EFAC"};
+            return {"title":"🌈 다채로운 프리즘","subtitle":"COLORFUL PRISM","icon":"🎨","tags":["#개성","#존중","#새로움"],"desc":"서로 다른 색이 만나 아름다운 무지개를 만드는 관계","color":"#8B5CF6","borderColor":"#DDD6FE"};
         }
         // 축별 슬롯 수 — 정규화용 (v3.5: 실제 태그 수로 보정)
         const SLOT_COUNT = { '개방성':15, '성실성':22, '외향성':11, '우호성':12, '정서안정':10, '애착안정':13, '애착불안':6, '애착회피':7 };
@@ -2582,18 +2631,36 @@
         const AXIS_MEAN = { '개방성':3.75,'성실성':5.50,'외향성':2.75,'우호성':3.00,'정서안정':2.50,'애착안정':3.25,'애착불안':1.50,'애착회피':1.75 };
         const AXIS_STD  = { '개방성':1.5612,'성실성':1.9039,'외향성':1.3919,'우호성':1.4142,'정서안정':1.3229,'애착안정':1.5612,'애착불안':1.0607,'애착회피':1.0897 };
 
-        function getDominantColor(axes) {
-            let maxZ = -Infinity;
-            let domTrait = '우호성'; 
-            const axesKeys = ['개방성', '성실성', '외향성', '우호성', '정서안정', '애착안정', '애착불안', '애착회피'];
-            for (const trait of axesKeys) {
+        // v5.0: Big5 top1+top2 조합별 고유 색상 (파동용)
+        function getWaveGradientColors(axes) {
+            const big5 = ['개방성', '성실성', '외향성', '우호성', '정서안정'];
+            let maxZ = -Infinity, secondZ = -Infinity;
+            let top1 = '우호성', top2 = '성실성';
+            big5.forEach(trait => {
                 const z = ((axes[trait] || 0) - AXIS_MEAN[trait]) / AXIS_STD[trait];
-                if (z > maxZ) {
-                    maxZ = z;
-                    domTrait = trait;
-                }
-            }
-            return traitColors[domTrait] || traitColors['우호성'];
+                if (z > maxZ) { secondZ = maxZ; top2 = top1; maxZ = z; top1 = trait; }
+                else if (z > secondZ) { secondZ = z; top2 = trait; }
+            });
+            const comboKey = top1 + '+' + top2;
+            const combo = traitComboColors[comboKey] || ['#8B5CF6', '#EDE9FE', '기본'];
+            return { primary: combo[0], secondary: combo[0], light1: combo[1], light2: combo[1], top1: top1, top2: top2, colorName: combo[2], comboKey: comboKey };
+        }
+        function getDominantColor(axes) {
+            // v5.0: Big5 top1+top2 조합별 고유 색상
+            const grad = getWaveGradientColors(axes);
+            const combo = traitComboColors[grad.comboKey] || ['#8B5CF6', '#EDE9FE', '기본'];
+            return [combo[0], combo[1]]; // [주색, 연한색] → 기존 호환
+        }
+        // v5.0: 애착 유형 판별 (긍정 라벨)
+        function getAttachmentStyle(axes) {
+            const s = axes['애착안정']||0, n = axes['애착불안']||0, v = axes['애착회피']||0;
+            const labels = {
+                '애착안정': { key:'애착안정', label:'든든한 동반자', emoji:'🤝', desc:'믿고 기다릴 줄 아는', color:'#6366F1' },
+                '애착불안': { key:'애착불안', label:'섬세한 감성가', emoji:'💗', desc:'깊이 느끼고 솔직한', color:'#EC4899' },
+                '애착회피': { key:'애착회피', label:'독립적인 자유인', emoji:'🌿', desc:'자기만의 세계가 뚜렷한', color:'#64748B' }
+            };
+            if (s >= n && s >= v) return labels['애착안정'];
+            return n >= v ? labels['애착불안'] : labels['애착회피'];
         }
         function getDominantTrait(axes) {
             let maxZ = -Infinity, dom = '우호성';
@@ -2620,8 +2687,10 @@
             const centerY = height / 2; 
             const maxAmplitude = (height / 2) - 60; 
             let offset = 0;
-            const mColors = getDominantColor(maleAxes); 
-            const fColors = getDominantColor(femaleAxes); 
+            const mGrad = getWaveGradientColors(maleAxes); 
+            const fGrad = getWaveGradientColors(femaleAxes);
+            const mColors = [mGrad.primary, mGrad.light2];  // top1 주색 → top2 연한색 그라데이션
+            const fColors = [fGrad.primary, fGrad.light2]; 
             // ── 새 3축 공식 (v3.0) ──
             const calcAmplitude = (axes) => {
                 const raw = (axes['외향성']||0)*1.2 + (axes['개방성']||0)*0.6 + (axes['애착안정']||0)*0.4 - (axes['애착회피']||0)*0.8;
@@ -3111,35 +3180,28 @@
             '애착회피': { name: '은빛', desc: '자존의 색', emoji: '⚪' }
         };
 
+        // v5.0: Big5 조합만 사용 (20가지)
         const colorComboDesc = {
-            '개방성+외향성':     '에너지와 호기심이 폭발하듯 뻗어나가는',
             '개방성+성실성':     '꿈과 현실이 균형을 이루며 나아가는',
+            '개방성+외향성':     '호기심과 활력이 폭발하듯 뻗어나가는',
             '개방성+우호성':     '열린 마음이 부드럽게 감싸 안는',
             '개방성+정서안정':   '흔들림 없이 새로운 깊이를 탐색하는',
-            '개방성+애착안정':   '안정 속에서 자유롭게 탐색하는',
-            '개방성+애착불안':   '감수성이 호기심을 타고 번지는',
-            '개방성+애착회피':   '독자적 세계를 탐구하며 울리는',
+            '성실성+개방성':     '단단한 계획 위에 창의적 영감이 빛나는',
             '성실성+외향성':     '추진력에 전략이 더해져 힘차게 나아가는',
             '성실성+우호성':     '성실한 배려가 묵직하게 흐르는',
             '성실성+정서안정':   '반석처럼 단단하고 흔들림 없는',
-            '성실성+애착안정':   '깊은 신뢰 위에 계획이 쌓이는',
-            '성실성+애착불안':   '완벽을 향한 긴장감이 팽팽한',
-            '성실성+애착회피':   '독립적 추진력이 규칙적으로 나아가는',
+            '외향성+개방성':     '에너지 넘치는 탐험가의',
+            '외향성+성실성':     '밝은 에너지와 실행력이 합쳐진',
             '외향성+우호성':     '활력이 배려를 만나 따뜻하게 퍼지는',
             '외향성+정서안정':   '안정된 에너지를 밝게 발산하는',
-            '애착안정+외향성':   '든든한 에너지가 밝게 퍼지는',
-            '애착불안+외향성':   '뜨겁고 강렬한 감정이 요동치는',
-            '애착회피+외향성':   '넓게 퍼지면서도 중심을 지키는',
+            '우호성+개방성':     '따뜻한 공감 속에 새로움을 품은',
+            '우호성+성실성':     '꼼꼼한 배려가 차곡차곡 쌓이는',
+            '우호성+외향성':     '사람을 향한 따뜻한 에너지가 넘치는',
             '우호성+정서안정':   '갈등을 녹이며 고요하게 흐르는',
-            '애착안정+우호성':   '따뜻하게 감싸는 포근한',
-            '애착불안+우호성':   '사랑이 넘쳐 섬세하게 떨리는',
-            '애착회피+우호성':   '거리를 두면서 은은히 배려하는',
-            '애착안정+정서안정': '어떤 바람에도 흔들리지 않는',
-            '애착불안+정서안정': '겉은 고요하나 속은 깊은',
-            '애착회피+정서안정': '초연하고 일정한 간격을 유지하는',
-            '애착불안+애착안정': '안정을 향해 조금씩 잔잔해지는',
-            '애착안정+애착회피': '열림과 닫힘이 번갈아 흐르는',
-            '애착불안+애착회피': '다가감과 물러남이 교차하는'
+            '정서안정+개방성':   '고요한 호수 위에 호기심이 일렁이는',
+            '정서안정+성실성':   '흔들림 없는 신뢰가 깊게 흐르는',
+            '정서안정+외향성':   '차분한 중심에서 밝은 빛이 퍼지는',
+            '정서안정+우호성':   '평온한 배려가 잔잔하게 감도는'
         };
 
         function getWaveSummaryLines(score, mAxes, fAxes) {
@@ -3157,6 +3219,9 @@
                     { k:'애착회피', v: ((axes['애착회피']||0) - AXIS_MEAN['애착회피']) / AXIS_STD['애착회피'] }
                 ].sort((a,b) => b.v - a.v);
                 const top1 = all[0].k, top2 = all[1].k;
+                // v5.0: Big5 top1/top2 for color (파동 색상용)
+                const waveColors = getWaveGradientColors(axes);
+                const colorTop1 = waveColors.top1, colorTop2 = waveColors.top2;
 
                 const amp = (axes['외향성']||0)*1.2 + (axes['개방성']||0)*0.6 + (axes['애착안정']||0)*0.4 - (axes['애착회피']||0)*0.8;
                 const freqRaw = (axes['애착불안']||0)*1.0 + (axes['개방성']||0)*0.4 - (axes['정서안정']||0)*0.8 - (axes['성실성']||0)*0.3;
@@ -3220,7 +3285,7 @@
                 ];
 
                 // ── 10-bar 게이지 HTML ──
-                const colorHex0 = (traitColors[top1] || traitColors['우호성'])[0];
+                const colorHex0 = (traitColors[colorTop1] || traitColors['우호성'])[0];
                 function makeGauge10(level, lowLabel, highLabel, barColor) {
                     let bars = '';
                     for (let i = 1; i <= 10; i++) {
@@ -3240,18 +3305,35 @@
                 const phaseHint = makeGauge10(phaseLevel, '팔로우', '리드', colorHex0) +
                     '<div style="font-size:12px;color:#1e293b;line-height:1.6;margin-top:8px;font-weight:500;">' + phaseDescs[phaseLevel] + '</div>';
 
-                const colorInfo = waveColorMeta[top1] || waveColorMeta['우호성'];
-                const colorHintMap = {
-                    '개방성': '보라색은 호기심과 창의력을 뜻해요. 새로운 것에 끌리고, 남들과 다른 시각으로 세상을 바라봐요.',
-                    '성실성': '파란색은 계획성과 책임감을 뜻해요. 맡은 일은 끝까지 해내고, 약속을 잘 지키는 사람이에요.',
-                    '외향성': '주황색은 활력과 사교성을 뜻해요. 사람들과 함께할 때 에너지가 생기고, 분위기를 밝게 만들어요.',
-                    '우호성': '초록색은 배려와 따뜻함을 뜻해요. 상대방 입장을 먼저 생각하고, 갈등보다 화합을 추구해요.',
-                    '정서안정': '청록색은 차분함과 안정을 뜻해요. 감정에 휘둘리지 않고, 어떤 상황에서도 평정심을 유지해요.',
-                    '애착안정': '남색은 신뢰와 포용을 뜻해요. 상대를 믿고 기다려줄 수 있고, 함께 있으면 편안한 사람이에요.',
-                    '애착불안': '빨간색은 풍부한 감수성을 뜻해요. 감정 표현이 솔직하고, 사랑하는 사람에게 깊이 몰입해요.',
-                    '애착회피': '은색은 독립성과 자율을 뜻해요. 자기만의 시간과 공간을 중요하게 여기고, 주관이 뚜렷해요.'
+                const colorInfo = waveColorMeta[colorTop1] || waveColorMeta['우호성'];
+                // v5.0: 20색 고유 색상명 + 색채 심리학 근거
+                const comboColorKey = colorTop1 + '+' + colorTop2;
+                const comboColor = traitComboColors[comboColorKey] || ['#8B5CF6', '#EDE9FE', '기본'];
+                const comboColorName = comboColor[2]; // 예: "사파이어", "라벤더" 등
+                // v5.0: 20색 색채 심리학 근거
+                const comboColorPsych = {
+                    '개방성+성실성':   '보라(창의)와 파랑(신뢰)이 만나 깊은 통찰과 전략적 사고를 상징해요.',
+                    '개방성+외향성':   '보라(창의)와 주황(열정)이 만나 예술적 에너지와 강렬한 표현력을 상징해요.',
+                    '개방성+우호성':   '보라(창의)와 초록(공감)이 만나 부드러운 상상력과 감성적 호기심을 상징해요.',
+                    '개방성+정서안정': '보라(창의)와 청록(평온)이 만나 고요한 깊이와 명상적 탐구를 상징해요.',
+                    '성실성+개방성':   '파랑(신뢰)과 보라(창의)가 만나 비전 있는 전략적 실행력을 상징해요.',
+                    '성실성+외향성':   '파랑(신뢰)과 주황(활동)이 만나 실행력 있는 리더십을 상징해요.',
+                    '성실성+우호성':   '파랑(신뢰)과 초록(배려)이 만나 책임감 있는 따뜻한 돌봄을 상징해요.',
+                    '성실성+정서안정': '파랑(신뢰)과 청록(평온)이 만나 반석처럼 단단한 안정감을 상징해요.',
+                    '외향성+개방성':   '주황(열정)과 보라(창의)가 만나 모험적 에너지와 자유로운 영혼을 상징해요.',
+                    '외향성+성실성':   '주황(열정)과 파랑(신뢰)이 만나 따뜻한 추진력과 신뢰감을 상징해요.',
+                    '외향성+우호성':   '주황(열정)과 초록(공감)이 만나 사람을 끌어당기는 따뜻한 매력을 상징해요.',
+                    '외향성+정서안정': '주황(열정)과 청록(평온)이 만나 안정된 중심에서 빛나는 카리스마를 상징해요.',
+                    '우호성+개방성':   '초록(조화)과 보라(창의)가 만나 열린 마음으로 공감하는 탐구자를 상징해요.',
+                    '우호성+성실성':   '초록(조화)과 파랑(신뢰)이 만나 묵직한 책임감과 따뜻한 배려를 상징해요.',
+                    '우호성+외향성':   '초록(조화)과 주황(활력)이 만나 밝고 생동감 있는 배려심을 상징해요.',
+                    '우호성+정서안정': '초록(조화)과 청록(평온)이 만나 갈등 없는 평화로운 관계를 상징해요.',
+                    '정서안정+개방성': '청록(평온)과 보라(창의)가 만나 고요한 호수에 피어나는 호기심을 상징해요.',
+                    '정서안정+성실성': '청록(평온)과 파랑(신뢰)이 만나 흔들림 없는 깊은 신뢰를 상징해요.',
+                    '정서안정+외향성': '청록(평온)과 주황(활력)이 만나 차분한 중심에서 퍼지는 밝은 빛을 상징해요.',
+                    '정서안정+우호성': '청록(평온)과 초록(조화)이 만나 가장 편안하고 안정된 관계를 상징해요.'
                 };
-                const colorHint = colorHintMap[top1] || '성격에서 가장 뚜렷한 성향이에요.';
+                const colorHint = comboColorPsych[comboColorKey] || '성격에서 가장 뚜렷한 성향이에요.';
 
                 const comboKey = [top1, top2].sort().join('+');
 
@@ -3457,20 +3539,13 @@
 
                 const profile = profiles[comboKey] || { label: '균형 잡힌 사람', HH: '다양한 면을 고루 갖춘 활발한 사람', HL: '여러 가지를 두루 잘하는 사람', LH: '차분하면서 균형 잡힌 사람', LL: '고요하지만 다방면으로 안정적인 사람' };
                 const shortDesc = profile[quad] || profile['LH'];
-                const labelColor = traitColors[top1] ? traitColors[top1][0] : '#374151';
+                const labelColor = traitColors[colorTop1] ? traitColors[colorTop1][0] : '#374151';
 
                 // 색상 부연
-                const colorDetail = {
-                    '개방성': '대표 색상인 보라색처럼 새로운 것에 끌리고 창의적인 발상이 많아요.',
-                    '성실성': '대표 색상인 파란색처럼 책임감이 강하고 맡은 일을 꼼꼼하게 처리해요.',
-                    '외향성': '대표 색상인 주황색처럼 밝고 활기차서 함께 있으면 기분이 좋아져요.',
-                    '우호성': '대표 색상인 초록색처럼 따뜻하고 배려심이 깊어서 주변 사람들이 편안해해요.',
-                    '정서안정': '대표 색상인 청록색처럼 차분하고 안정적이라 어떤 상황에서도 평정심을 유지해요.',
-                    '애착안정': '대표 색상인 남색처럼 믿음직하고 든든해서 함께 있으면 안심이 돼요.',
-                    '애착불안': '대표 색상인 빨간색처럼 감수성이 풍부하고 사랑하는 사람에게 진심으로 다가가요.',
-                    '애착회피': '대표 색상인 은색처럼 독립적이고 자기만의 세계가 뚜렷한 사람이에요.'
-                };
-                const cDetail = colorDetail[top1] || '';
+                // v5.0: 20색 고유 색상 설명
+                const cDetail = `대표 색상 <b style="color:${comboColor[0]}">${comboColorName}</b> — ${colorHint}`;
+                const attachStyle = getAttachmentStyle(axes);
+
 
                 const desc = `<b style="color:${labelColor}">"${shortDesc}"</b><br><br>` +
                     `⛰️ 관계 에너지 <b>${ampLevel}/10</b> — ${ampDescs[ampLevel]}<br>` +
@@ -3485,8 +3560,8 @@
                 return {
                     label: `${colorInfo.emoji} <b style="color:${labelColor}">${profile.label}</b>`,
                     desc: desc,
-                    colorKey: top1,
-                    color: traitColors[top1] || traitColors['우호성'],
+                    colorKey: colorTop1,
+                    color: traitColors[colorTop1] || traitColors['우호성'],
                     emoji: colorInfo.emoji,
                     ampPct: ampPct,
                     freqPct: freqPct,
@@ -3497,11 +3572,14 @@
                     freqHint: freqHint,
                     phaseHint: phaseHint,
                     colorHint: colorHint,
-                    colorTag: `${colorInfo.emoji} ${colorInfo.name} · ${colorInfo.desc}`,
+                    colorTag: `🎨 ${comboColorName} · ${colorComboDesc[comboColorKey] || '고유한 파동'}`,
                     quadTag: `${qm.emoji} ${qm.label}`,
                     phaseTag: `${phaseMeta.emoji} ${phaseMeta.label}`,
-                    colorHex: (traitColors[top1] || traitColors['우호성'])[0],
-                    colorName: colorInfo.name,
+                    colorHex: comboColor[0],
+                    colorName: comboColorName,
+                    colorTop2: colorTop2,
+                    attachStyle: attachStyle,
+                    gradientDesc: colorComboDesc[colorTop1+'+'+colorTop2] || '독특한 조합의',
                     quadDotX: ((freqLevel - 1) / 9) * 90 + 5,
                     quadDotY: 95 - ((ampLevel - 1) / 9) * 90,
                     ampLevel: ampLevel,
@@ -3687,6 +3765,7 @@
                 malePhaseTag: mResult.phaseTag,
                 maleColorHex: mResult.colorHex,
                 maleColorName: mResult.colorName,
+                maleAttachStyle: mResult.attachStyle,
                 maleQuadDotX: mResult.quadDotX,
                 maleQuadDotY: mResult.quadDotY,
                 maleAmpLevel: mResult.ampLevel,
@@ -3705,6 +3784,7 @@
                 femalePhaseTag: fResult.phaseTag,
                 femaleColorHex: fResult.colorHex,
                 femaleColorName: fResult.colorName,
+                femaleAttachStyle: fResult.attachStyle,
                 femaleQuadDotX: fResult.quadDotX,
                 femaleQuadDotY: fResult.quadDotY,
                 femaleAmpLevel: fResult.ampLevel,
@@ -3791,16 +3871,23 @@
             const fColor = getDominantColor(data.femaleAxes);
             const mCircle = document.getElementById('result-circle-male');
             const fCircle = document.getElementById('result-circle-female');
+            const mGradC = getWaveGradientColors(data.maleAxes);
+            const fGradC = getWaveGradientColors(data.femaleAxes);
             if(mCircle) {
-                mCircle.style.background = `linear-gradient(135deg, ${mColor[0]}, ${mColor[1]})`;
+                mCircle.style.background = `linear-gradient(135deg, ${mGradC.primary}, ${mGradC.secondary})`;
                 mCircle.style.boxShadow = `0 10px 25px ${mColor[1]}`;
                 mCircle.innerHTML = ''; 
             }
             if(fCircle) {
-                fCircle.style.background = `linear-gradient(135deg, ${fColor[0]}, ${fColor[1]})`;
+                fCircle.style.background = `linear-gradient(135deg, ${fGradC.primary}, ${fGradC.secondary})`;
                 fCircle.style.boxShadow = `0 10px 25px ${fColor[1]}`;
                 fCircle.innerHTML = ''; 
             }
+            // v5.0: 원 아래 색상 이름 표시
+            const circleNameM = document.getElementById('circle-color-name-m');
+            const circleNameF = document.getElementById('circle-color-name-f');
+            if (circleNameM) { circleNameM.textContent = mGradC.colorName; circleNameM.style.color = mGradC.primary; }
+            if (circleNameF) { circleNameF.textContent = fGradC.colorName; circleNameF.style.color = fGradC.primary; }
             const defs = document.getElementById('connection-defs');
             if(defs) {
                 defs.innerHTML = `
@@ -3837,11 +3924,17 @@
             if (tagQuadM) tagQuadM.textContent = waveSummary.maleQuadTag;
             const tagPhaseM = document.getElementById('wave-tag-phase-m');
             if (tagPhaseM) tagPhaseM.textContent = waveSummary.malePhaseTag;
+            const tagAttachM = document.getElementById('wave-tag-attach-m');
+            if (tagAttachM && waveSummary.maleAttachStyle) {
+                tagAttachM.textContent = `${waveSummary.maleAttachStyle.emoji} ${waveSummary.maleAttachStyle.label}`;
+                tagAttachM.style.borderColor = waveSummary.maleAttachStyle.color;
+                tagAttachM.style.color = waveSummary.maleAttachStyle.color;
+            }
             // 색상 도트 + 이름 + 힌트
             const colorHintM = document.getElementById('wave-color-hint-m');
             const colorDotM = document.getElementById('wave-color-dot-m');
             const colorNameM = document.getElementById('wave-color-name-m');
-            if (colorDotM && waveSummary.maleColor) colorDotM.style.background = waveSummary.maleColor[0];
+            if (colorDotM) colorDotM.style.background = waveSummary.maleColorHex;
             if (colorNameM) colorNameM.textContent = waveSummary.maleColorName;
             if (colorHintM) colorHintM.textContent = waveSummary.maleColorHint;
             // 여성 카드
@@ -3863,11 +3956,17 @@
             if (tagQuadF) tagQuadF.textContent = waveSummary.femaleQuadTag;
             const tagPhaseF = document.getElementById('wave-tag-phase-f');
             if (tagPhaseF) tagPhaseF.textContent = waveSummary.femalePhaseTag;
+            const tagAttachF = document.getElementById('wave-tag-attach-f');
+            if (tagAttachF && waveSummary.femaleAttachStyle) {
+                tagAttachF.textContent = `${waveSummary.femaleAttachStyle.emoji} ${waveSummary.femaleAttachStyle.label}`;
+                tagAttachF.style.borderColor = waveSummary.femaleAttachStyle.color;
+                tagAttachF.style.color = waveSummary.femaleAttachStyle.color;
+            }
             // 색상 도트 + 이름 + 힌트
             const colorHintF = document.getElementById('wave-color-hint-f');
             const colorDotF = document.getElementById('wave-color-dot-f');
             const colorNameF = document.getElementById('wave-color-name-f');
-            if (colorDotF && waveSummary.femaleColor) colorDotF.style.background = waveSummary.femaleColor[0];
+            if (colorDotF) colorDotF.style.background = waveSummary.femaleColorHex;
             if (colorNameF) colorNameF.textContent = waveSummary.femaleColorName;
             if (colorHintF) colorHintF.textContent = waveSummary.femaleColorHint;
             // 사분면 점 위치 업데이트 (10×10 그리드 정확 좌표)
