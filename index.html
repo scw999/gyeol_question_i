@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>결하다 - 삼중뇌 & Big 5 심층 궁합 (v5.0)</title>
+    <title>결하다 - 삼중뇌 & Big 5 심층 궁합 (v5.1)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -1912,7 +1912,7 @@
     // 9. 연락
     { id: 'q_contact_style', section: 'Limbic', category: '애착 유형', type: 'crossover', text_me: '나의 연락 스타일은 어떤 편이에요?', text_partner: '상대방에게 바라는 연락 빈도는 어떤 편이에요?', options: [ 
         { value: '1', text: '일상을 실시간으로 공유하고 자주 연락하고 싶어요.', tag: '#애착불안'}, 
-        { value: '2', text: '출퇴근이나 식사 등 주요 시점엔 꼭 연락하는 편이에요.', tag: '#성실성'}, 
+        { value: '2', text: '출퇴근이나 식사 등 주요 시점엔 꼭 연락하고 싶어요.', tag: '#성실성'}, 
         { value: '3', text: '특별한 용건이 있거나 자기 전에만 통화하면 충분해요.', tag: '#애착회피'}, 
         { value: '4', text: '서로 부담 없이 편할 때 연락하는 게 좋아요.', tag: '#애착안정'} 
     ]},
@@ -1945,11 +1945,11 @@
         { value: '4', text: '싸우는 상황 자체가 싫어서 자리를 피하는 편이에요.', tag: '#애착회피', followup: { text: '상대가 따라오면?', options: [{ value: '1', text: '더 멀리 가요' }, { value: '2', text: '멈추고 들어요' }, { value: '3', text: '짜증이 나요' }] } } 
     ]},
     // 14. 화해 (New)
-    { id: 'q_reconciliation', section: 'Limbic', category: '화해 방식', type: 'dynamic', text: '싸움 후 냉전을 끝내고 싶을 때 어떻게 해요?', options: [ 
-        { value: '1', text: '"우리 얘기 좀 해" 하며 먼저 대화를 시도하는 편이에요.', tag: '#애착안정', followup: { text: '상대가 거부하면?', options: [{ value: '1', text: '기다려 줘요' }, { value: '2', text: '답답해요' }, { value: '3', text: '더 화가 나요' }] } }, 
-        { value: '2', text: '애교를 부리거나 장난을 치며 분위기를 푸는 편이에요.', tag: '#우호성', followup: { text: '상대가 정색하면?', options: [{ value: '1', text: '무안해요' }, { value: '2', text: '상처받아요' }, { value: '3', text: '그만둬요' }] } }, 
-        { value: '3', text: '좋아하는 음식을 사오거나 선물을 건네는 편이에요.', tag: '#외향성', followup: { text: '받지 않으면?', options: [{ value: '1', text: '서운해요' }, { value: '2', text: '화가 나요' }, { value: '3', text: '다음 기회를 봐요' }] } }, 
-        { value: '4', text: '상대 기분이 풀릴 때까지 조용히 기다리는 편이에요.', tag: '#애착회피', followup: { text: '너무 오래 걸리면?', options: [{ value: '1', text: '먼저 연락해요' }, { value: '2', text: '계속 기다려요' }, { value: '3', text: '지쳐요' }] } } 
+    { id: 'q_reconciliation', section: 'Limbic', category: '화해 완성', type: 'dynamic', text: '완전히 화해했다고 느끼는 순간은 언제예요?', options: [ 
+        { value: '1', text: '깊은 대화로 서로를 다시 이해했을 때 안심돼요.', tag: '#애착안정', followup: { text: '화해가 완전히 풀리기까지 보통 얼마나 걸려요?', options: [{ value: '1', text: '당일 안에 풀려요' }, { value: '2', text: '다음 날까지는 풀려요' }, { value: '3', text: '며칠씩 걸려요' }] } }, 
+        { value: '2', text: '평소처럼 자연스럽게 웃을 수 있을 때 풀렸다고 느껴요.', tag: '#우호성', followup: { text: '화해가 완전히 풀리기까지 보통 얼마나 걸려요?', options: [{ value: '1', text: '당일 안에 풀려요' }, { value: '2', text: '다음 날까지는 풀려요' }, { value: '3', text: '며칠씩 걸려요' }] } }, 
+        { value: '3', text: '따뜻한 스킨십이나 포옹이 있을 때 진짜 풀려요.', tag: '#외향성', followup: { text: '화해가 완전히 풀리기까지 보통 얼마나 걸려요?', options: [{ value: '1', text: '당일 안에 풀려요' }, { value: '2', text: '다음 날까지는 풀려요' }, { value: '3', text: '며칠씩 걸려요' }] } }, 
+        { value: '4', text: '시간이 흘러 서로 언급하지 않을 때 끝났다고 느껴요.', tag: '#애착회피', followup: { text: '화해가 완전히 풀리기까지 보통 얼마나 걸려요?', options: [{ value: '1', text: '당일 안에 풀려요' }, { value: '2', text: '다음 날까지는 풀려요' }, { value: '3', text: '며칠씩 걸려요' }] } } 
     ]},
     // 14b. 갈등 후 기대 (신규 Crossover)
     { id: 'q_conflict_need', section: 'Limbic', category: '갈등 회복', type: 'crossover', text_me: '싸운 후 상대에게 바라는 반응은 어떤 건가요?', text_partner: '싸운 후 나는 어떻게 하는 편이에요?', options: [ 
@@ -1990,10 +1990,10 @@
     ]},
     // 19. 관리
     { id: 'q_manage', section: 'Neocortex', category: '경제관', type: 'similarity', text: '결혼 후 수입 관리는 어떻게 하고 싶으세요?', options: [ 
-        { value: '1', text: '각자 수입을 관리하고 생활비만 공동 부담하고 싶어요.', tag: '#개방성'}, 
-        { value: '2', text: '한 사람이 전담 관리하고 용돈을 받아 쓰고 싶어요.', tag: '#성실성'}, 
-        { value: '3', text: '수입을 모두 합치고 지출 계획을 함께 의논하고 싶어요.', tag: '#애착안정'}, 
-        { value: '4', text: '공동 통장에 생활비를 넣고 나머지는 각자 자유롭게 쓰고 싶어요.', tag: '#정서안정'} 
+        { value: '1', text: '각자 수입은 각자 관리하고 공동 비용만 함께 부담하고 싶어요.', tag: '#개방성'}, 
+        { value: '2', text: '내가 전담 관리하고 배우자에게 용돈을 드리는 게 마음 편해요.', tag: '#성실성'}, 
+        { value: '3', text: '배우자가 전담 관리하고 내가 용돈을 받는 게 마음 편해요.', tag: '#정서안정'}, 
+        { value: '4', text: '수입을 모두 합치고 지출 계획을 함께 의논하고 싶어요.', tag: '#애착안정'} 
     ]},
     // 20. 자녀
     { id: 'q_kids', section: 'Neocortex', category: '가족관', type: 'preference', text: '자녀 계획은 어떻게 생각하세요?', options: [ 
@@ -2342,7 +2342,6 @@
                             q_weekend: [['3','1'],['3','2'],['4','1'],['4','2']],
                             q_plan: [['4','1'],['4','3']],
                             q_argument: [['2','3']],
-                            q_manage: [['3','4']],
                             q_parenting: [['3','2']],
                             q_retirement: [['1','3'],['2','3']]
                         };
@@ -2352,7 +2351,35 @@
                             q_food:0.7, q_retirement:0.7, q_parenting:0.7
                         };
                         if (m && f) {
-                            if (m_val === f_val) { 
+                            // ★ v5.1 Q19 q_manage 전용 예외: 관리 주체 비대칭 정확히 채점
+                            if (q.id === 'q_manage') {
+                                // val 2↔3: 완벽 상호보완 (한 명이 관리 + 한 명이 용돈)
+                                if ((m_val === '2' && f_val === '3') || (m_val === '3' && f_val === '2')) {
+                                    qScore = 1.0; isMatch = true; scoreReason = '완벽 상호보완 (한 명 전담 관리 + 한 명 용돈제로 역할 분담)';
+                                    details.exactMatches.push({ matchType: 'similarity', questionType: q.type, category: q.category, q: q.text, a: '완벽 상호보완: 한 명이 관리, 한 명이 용돈제로 자연스럽게 역할 분담' });
+                                }
+                                // val 2↔2: 주도권 충돌 (양쪽 다 본인이 전담 희망)
+                                else if (m_val === '2' && f_val === '2') {
+                                    qScore = 0.3; scoreReason = '주도권 충돌 (양쪽 다 본인이 전담 관리 희망 → 첫 분기 갈등 영역)';
+                                    details.diffMatches.push({ q: q.text, ma: m_answer, fa: f_answer });
+                                }
+                                // val 3↔3: 책임 떠넘김 (양쪽 다 상대가 관리해주길 희망)
+                                else if (m_val === '3' && f_val === '3') {
+                                    qScore = 0.3; scoreReason = '책임 떠넘김 (양쪽 다 배우자가 관리해주길 희망 → 재정 의사결정 공백)';
+                                    details.diffMatches.push({ q: q.text, ma: m_answer, fa: f_answer });
+                                }
+                                // 그 외 값 일치 (val 1↔1, val 4↔4): 정상 일치
+                                else if (m_val === f_val) {
+                                    qScore = 1.0; isMatch = true; scoreReason = '값 완전 일치';
+                                    details.exactMatches.push({ matchType: 'similarity', questionType: q.type, category: q.category, q: q.text, a: m_answer });
+                                }
+                                // 그 외 불일치: 태그 일치 체크 없이 0점 (관리 방식은 중간값 허용 안 됨)
+                                else {
+                                    qScore = 0.0; scoreReason = '관리 방식 불일치';
+                                    details.diffMatches.push({ q: q.text, ma: m_answer, fa: f_answer });
+                                }
+                            }
+                            else if (m_val === f_val) { 
                                 qScore = 1.0; isMatch = true; scoreReason = '값 완전 일치';
                                 details.exactMatches.push({ matchType: 'similarity', questionType: q.type, category: q.category, q: q.text, a: m_answer });
                             } else if (tagToAxis[m_tag] === tagToAxis[f_tag]) { 
@@ -2380,7 +2407,7 @@
                             q_hygiene: { '1': {1:'-',2:'+',3:'-'}, '2': {1:'-',2:'+',3:'+'}, '3': {1:'+',2:'-',3:'-'}, '4': {1:'+',2:'+',3:'+'} },
                             q_absence: { '1': {1:'+',2:'+',3:'+'}, '2': {1:'-',2:'-',3:'-'}, '3': {1:'+',2:'+',3:'+'}, '4': {1:'+',2:'-',3:'-'} },
                             q_anger: { '1': {1:'-',2:'+',3:'+'}, '2': {1:'+',2:'+',3:'-'}, '3': {1:'-',2:'+',3:'+'}, '4': {1:'-',2:'+',3:'-'} },
-                            q_reconciliation: { '1': {1:'+',2:'-',3:'-'}, '2': {1:'-',2:'-',3:'+'}, '3': {1:'-',2:'-',3:'+'}, '4': {1:'+',2:'-',3:'-'} }
+                            q_reconciliation: { '1': {1:'+',2:'+',3:'-'}, '2': {1:'+',2:'+',3:'+'}, '3': {1:'+',2:'+',3:'-'}, '4': {1:'-',2:'-',3:'+'} }
                         };
                         const m_fu = document.querySelector(`input[name="${q.id}-followup-male"]:checked`);
                         const f_fu = document.querySelector(`input[name="${q.id}-followup-female"]:checked`);
